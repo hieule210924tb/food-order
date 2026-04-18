@@ -1,0 +1,231 @@
+.admin-main {
+    background: #f1f2f6;
+    flex: 1;
+    min-height: 100vh;
+}
+
+/* ===== Container ===== */
+.admin-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 20px 20px 32px;
+}
+
+/* ===== Header ===== */
+.admin-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-page-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #2d3436;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-page-title .bi {
+    font-size: 1.4rem;
+    color: #ff6b81;
+}
+
+/* ===== Card ===== */
+.admin-card {
+    background: #ffffff;
+    border-radius: 10px; /* tăng bo góc */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* bóng mềm hơn */
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    border: 1px solid #f1f2f6; /* thêm viền nhẹ */
+}
+
+.admin-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #2d3436;
+}
+
+/* ===== Form Grid ===== */
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px 18px;
+    align-items: flex-start;
+}
+
+/* ===== Form ===== */
+.admin-form-group label {
+    display: block;
+    font-size: 0.82rem;
+    margin-bottom: 5px;
+    color: #636e72;
+    font-weight: 500;
+}
+
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px; /* bo góc mềm hơn */
+    border: 1px solid #dfe6e9;
+    font-size: 0.88rem;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.admin-form-group textarea {
+    resize: vertical;
+}
+
+/* Focus đẹp hơn */
+.admin-form-group input:focus,
+.admin-form-group select:focus,
+.admin-form-group textarea:focus {
+    outline: none;
+    border-color: #1e90ff;
+    box-shadow: 0 0 0 2px rgba(30,144,255,0.1);
+}
+
+/* ===== Actions ===== */
+.admin-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+/* ===== Button ===== */
+.btn-primary {
+    background: #1e90ff;
+    color: #fff;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: #187bcd;
+}
+
+.btn-secondary {
+    background: #ecf0f1;
+    color: #2d3436;
+    padding: 7px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-secondary:hover {
+    background: #dfe6e9;
+}
+
+/* ===== Alert ===== */
+.admin-alert {
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+}
+
+.admin-alert-success {
+    background: #e6fffa;
+    border: 1px solid #38b2ac;
+    color: #276749;
+}
+
+.admin-alert-danger {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    color: #c53030;
+}
+
+/* ===== Table ===== */
+.admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid #edf2f7;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* hover row */
+.admin-table tr:hover {
+    background: #f9fbfc;
+}
+
+/* ===== Badge ===== */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+}
+
+.badge-success {
+    background: #e6fffa;
+    color: #047857;
+}
+
+.badge-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* ===== Button nhỏ ===== */
+.btn-small {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.78rem;
+    text-decoration: none;
+    background: #1e90ff;
+    color: #fff;
+    margin-right: 4px;
+    transition: 0.2s;
+}
+
+.btn-small.btn-danger {
+    background: #ff6b81;
+}
+
+.btn-small:hover {
+    opacity: 0.85;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 16px 12px 24px;
+    }
+
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,421 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Admin layout: menu dọc sát lề trái + icon */
+body.admin-body{
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.admin-layout{
+    display: flex;
+    min-height: 100vh;
+}
+.admin-sidebar{
+    width: 220px;
+    min-width: 220px;
+    background: #2d3436;
+    color: #dfe6e9;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #636e72;
+}
+.sidebar-nav {
+    padding: 12px 0;
+}
+.sidebar-nav ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.sidebar-nav li{ margin: 0; }
+.sidebar-nav li a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    color: #dfe6e9;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+.sidebar-nav li a:hover,
+.sidebar-nav li a:focus{
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+.sidebar-nav .menu-icon{
+    font-size: 18px;
+    line-height: 1;
+    opacity: 0.9;
+}
+.sidebar-nav .chat-badge{
+    margin-left: auto;
+    background: #ff6b81;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+.admin-right{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+.admin-topbar{
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.topbar-brand {
+    font-size: 0.95rem;
+    color: #2d3436;
+    font-weight: 600;
+}
+.topbar-left .topbar-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #2d3436;
+}
+.topbar-right .topbar-user{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #636e72;
+}
+.topbar-user-icon{
+    font-size: 18px;
+    line-height: 1;
+    opacity: 0.9;
+}
+body.admin-body .main-content{
+    flex: 1;
+    background-color: #f1f2f6;
+    padding: 20px;
+}
+body.admin-body .main-content .wrapper{ max-width: 100%; }
+
+.wrapper{
+    padding: 1%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.text-center{
+    text-align: center;
+}
+.clearfix{
+    float: none;
+    clear: both;
+}
+.tbl-full{
+    width: 100%;
+}
+.tbn-30{
+    width: 30%;
+}
+
+table tr th{
+    border-bottom: 1px solid black;
+    padding: 1%;
+    text-align: left;
+}
+ table tr td{
+    padding: 1%;
+}
+.btn-primary{
+    background-color: #1e90ff;
+    padding: 1%;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-primary:hover{
+    background-color: #3742fa;
+}
+
+.btn-secondary{
+    background-color: #9fa4a1;
+    padding: 1%;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-secondary:hover{
+    background-color: #2ed573;
+}
+
+.btn-danger{
+    background-color: #ff6b81;
+    padding: 1%;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-danger:hover{
+    background-color: #ff4757;
+}
+
+.success{
+    color: #2ed573;
+}
+.error{
+    color: #ff4757;
+}
+
+
+/* css for main-content */
+.main-content{
+    background-color: #f1f2f6;
+    padding: 24px 20px;
+}
+.main-content .wrapper > h1 {
+    margin-bottom: 20px;
+    font-size: 1.75rem;
+    color: #2d3436;
+}
+.col-4{
+    box-sizing: border-box;
+    width: 23%;
+    background-color: white;
+    margin: 0 1%;
+    padding: 20px 16px;
+    float: left;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.col-4:first-child { margin-left: 0; }
+.col-4 h1 { font-size: 1.75rem; margin-bottom: 8px; }
+.col-4 .text-center { line-height: 1.4; }
+
+
+
+/* css for Footer - admin: hàng ngang, sát chân */
+.admin-footer{
+    background: #2d3436;
+    color: #dfe6e9;
+    padding: 12px 20px;
+    margin-top: auto;
+    z-index: 10;
+}
+.admin-footer .footer-inner{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.admin-footer .footer-social{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.admin-footer .footer-social li{ display: inline-block; }
+.admin-footer .footer-social a img{
+    width: 48px;
+    height: 48px;
+    opacity: 0.85;
+}
+.admin-footer .footer-social a:hover img{ opacity: 1; }
+.admin-footer .footer-copy{
+    margin: 0;
+    font-size: 1rem;
+}
+.admin-footer .footer-copy a{
+    color: #ff6b81;
+    text-decoration: none;
+}
+.admin-footer .footer-copy a:hover{ text-decoration: underline; }
+.footer{
+    background-color: transparent;
+    color: #2f3542;
+    padding: 2% 0;
+    z-index: 10;
+}
+
+/* CSS for login */
+body.login-page{
+    background-image: url('../image/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+}
+
+.login{
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 30%;
+    margin: 10% auto;
+    padding: 3%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.login h1{
+    color: #2f3542;
+    margin-bottom: 20px;
+}
+
+.login form{
+    position: relative;
+    z-index: 1;
+}
+
+.login input[type="text"],
+.login input[type="password"]{
+    width: 80%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus{
+    outline: none;
+    border-color: #1e90ff;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+}
+
+/* Dashboard: grid + card chart (index.php) */
+.main-content .grid {
+    margin-top: 24px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.main-content .card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+.main-content .card-header {
+    padding: 14px 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.main-content .card-header > div:first-child {
+    font-weight: 600;
+    color: #2d3436;
+    font-size: 0.95rem;
+}
+.main-content .chart-wrap {
+    padding: 16px;
+    height: 280px;
+}
+.main-content .chart-wrap canvas {
+    max-height: 100%;
+}
+@media only screen and (max-width: 768px) {
+    .main-content .grid {
+        grid-template-columns: 1fr;
+        margin-top: 16px;
+    }
+    .main-content .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* CSS for Charts */
+.charts-container {
+    margin-top: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+.chart-wrapper {
+    background-color: white;
+    padding: 2%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 48%;
+    margin-bottom: 2%;
+    min-height: 350px;
+}
+
+.chart-wrapper h2 {
+    color: #2f3542;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    text-align: center;
+    border-bottom: 2px solid #f1f2f6;
+    padding-bottom: 10px;
+}
+
+.chart-wrapper canvas {
+    max-height: 300px;
+}
+
+.chart-full {
+    width: 100%;
+    min-height: 400px;
+}
+
+.chart-full canvas {
+    max-height: 350px;
+}
+
+/* Responsive for charts */
+@media only screen and (max-width: 1024px){
+    .chart-wrapper {
+        width: 100%;
+    }
+}
+
+/* Responsive for login page */
+@media only screen and (max-width: 768px){
+    .login{
+        width: 85%;
+        margin: 20% auto;
+        padding: 5%;
+    }
+    
+    .login input[type="text"],
+    .login input[type="password"]{
+        width: 90%;
+    }
+
+    .chart-wrapper {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .chart-wrapper h2 {
+        font-size: 1.1rem;
+    }
+}

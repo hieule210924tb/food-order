@@ -1,0 +1,731 @@
+
+
+/* CSS for All */
+*{
+    margin: 0 0;
+    padding: 0 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+    width: 80%;
+    margin: 0 auto;
+    padding: 1%;
+}
+.img-responsive{
+    width: 100%;
+}
+.img-curve{
+    border-radius: 15px;
+}
+
+.text-right{
+    text-align: right;
+}
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
+.text-white{
+    color: white;
+}
+
+.clearfix{
+    clear: both;
+    float: none;
+}
+
+a{
+    color: #ff6b81;
+    text-decoration: none;
+}
+a:hover{
+    color: #ff4757;
+}
+.back-link .bi { margin-right: 6px; }
+
+.btn{
+    padding: 1%;
+    border: none;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+.btn-primary{
+    background-color: #ff6b81;
+    color: white;
+    cursor: pointer;
+}
+.btn-primary:hover{
+    color: white;
+    background-color: #ff4757;
+}
+.btn-primary .bi { margin-right: 6px; }
+h2{
+    color: #2f3542;
+    font-size: 2rem;
+    margin-bottom: 2%;
+}
+h3{
+    font-size: 1.5rem;
+}
+.float-container{
+    position: relative;
+}
+.float-text{
+    position: absolute;
+    bottom: 50px;
+    left: 40%;
+}
+fieldset{
+    border: 1px solid white;
+    margin: 5%;
+    padding: 3%;
+    border-radius: 5px;
+}
+
+
+/* CSSS for navbar section */
+
+.logo{
+    width: 10%;
+    float: left;
+}
+.menu{
+    line-height: 60px;
+}
+.menu ul{
+    list-style-type: none;
+}
+
+.menu ul li{
+    display: inline;
+    padding: 1%;
+    font-weight: bold;
+}
+
+
+/* CSS for Food SEarch Section */
+
+.food-search{
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 7% 0;
+}
+
+.food-search input[type="search"]{
+    width: 50%;
+    padding: 1%;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.search-container{
+    position: relative;
+    display: inline-block;
+    width: 50%;
+}
+
+.search-suggestions{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-suggestions.show{
+    display: block;
+}
+
+.suggestion-item{
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover{
+    background-color: #f8f8f8;
+}
+
+.suggestion-item:last-child{
+    border-bottom: none;
+}
+
+.suggestion-item.highlighted{
+    background-color: #ff6b81;
+    color: white;
+}
+
+@media only screen and (max-width:768px){
+    .search-container{
+        width: 90%;
+    }
+    
+    .food-search input[type="search"]{
+        width: 100%;
+    }
+}
+/*CSS bestseller*/
+.bestseller{
+padding:50px 0;
+background:#f8f8f8;
+}
+
+.bestseller h2{
+font-size:30px;
+margin-bottom:35px;
+}
+
+/* grid */
+
+/* Bestseller section (grid) */
+.bestseller{
+    padding: 4% 0;
+}
+.best-grid{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+}
+.item{
+    width:220px;
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    text-align:center;
+    position:relative;
+    transition:0.3s;
+}
+.item:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+.item img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:8px;
+    margin-bottom:10px;
+}
+.badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:#ff4757;
+    color:white;
+    padding:4px 8px;
+    font-size:12px;
+    border-radius:5px;
+}
+.item h3{
+    font-size:18px;
+    margin:10px 0;
+}
+.price{
+    color:#ff6b81;
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* CSS for Categories */
+.categories{
+    padding: 4% 0;
+}
+
+.box-3{
+    width: 28%;
+    float: left;
+    margin: 2%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    transform-origin: center center;
+}
+
+.box-3:hover{
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.box-3 img{
+    transition: transform 0.3s ease;
+}
+
+.box-3:hover img{
+    transform: scale(1.05);
+}
+
+
+/* CSS for Food Menu */
+.food-menu{
+    background-color: #ececec;
+    padding: 4% 0;
+}
+.food-menu-box{
+    width: 43%;
+    margin: 1%;
+    padding: 2%;
+    float: left;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.food-menu-img{
+    width: 20%;
+    float: left;
+}
+
+.food-menu-desc{
+    width: 70%;
+    float: left;
+    margin-left: 8%;
+}
+
+.food-price{
+    font-size: 1.2rem;
+    margin: 2% 0;
+}
+.food-detail{
+    font-size: 1rem;
+    color: #747d8c;
+}
+
+
+/* CSS for Social (legacy) */
+.social ul{
+    list-style-type: none;
+}
+.social ul li{
+    display: inline;
+    padding: 1%;
+}
+
+
+footer.footer-main.footer-adsdigi-style {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff !important;
+    color: #2f3542;
+    padding: 48px 0 32px;
+    border-top: 1px solid #e8ecf4;
+}
+footer.footer-adsdigi-style .container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+footer.footer-adsdigi-style .footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 48px 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e8ecf4;
+}
+footer.footer-adsdigi-style .footer-col {
+    padding: 0;
+}
+footer.footer-adsdigi-style .footer-heading {
+    color: #2f3542;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+footer.footer-adsdigi-style .footer-logo-wrap {
+    margin-bottom: 8px;
+}
+footer.footer-adsdigi-style .footer-logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ff6b81;
+    letter-spacing: -0.02em;
+}
+footer.footer-adsdigi-style .footer-company-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2f3542;
+    margin: 0 0 12px;
+}
+footer.footer-adsdigi-style .footer-desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #57606f;
+    margin: 0 0 20px;
+    max-width: 320px;
+}
+footer.footer-adsdigi-style .footer-info-list,
+footer.footer-adsdigi-style ul.footer-info-list {
+    list-style: none !important;
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+}
+footer.footer-adsdigi-style .footer-info-list li {
+    list-style: none !important;
+    font-size: 0.9rem;
+    color: #57606f;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+footer.footer-adsdigi-style .footer-info-icon {
+    color: #ff6b81;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+footer.footer-adsdigi-style .footer-social-list,
+footer.footer-adsdigi-style ul.footer-social-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+footer.footer-adsdigi-style .footer-social-list li {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+}
+footer.footer-adsdigi-style .footer-social-list a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #f1f3f5;
+    border-radius: 50%;
+    transition: background 0.2s, transform 0.2s;
+}
+footer.footer-adsdigi-style .footer-social-list a:hover {
+    background: #ff6b81;
+    transform: translateY(-2px);
+}
+footer.footer-adsdigi-style .footer-social-list img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+footer.footer-adsdigi-style .footer-links,
+footer.footer-adsdigi-style ul.footer-links {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+}
+footer.footer-adsdigi-style .footer-links li {
+    list-style: none !important;
+    margin-bottom: 10px;
+}
+footer.footer-adsdigi-style .footer-links a {
+    color: #57606f;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s, padding-left 0.2s;
+}
+footer.footer-adsdigi-style .footer-links a:hover {
+    color: #ff6b81;
+    padding-left: 4px;
+}
+footer.footer-adsdigi-style .footer-fanpage-box {
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid #e8ecf4;
+}
+footer.footer-adsdigi-style .footer-fanpage-text {
+    font-size: 0.9rem;
+    color: #57606f;
+    margin: 0 0 14px;
+    line-height: 1.5;
+}
+footer.footer-adsdigi-style .footer-fanpage-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #ff6b81;
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+footer.footer-adsdigi-style .footer-fanpage-btn:hover {
+    background: #ff4757;
+    color: #fff !important;
+}
+/* Video YouTube trong footer – responsive 16:9 */
+footer.footer-adsdigi-style .footer-video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: #1a1a1a;
+    border: 1px solid #e8ecf4;
+}
+footer.footer-adsdigi-style .footer-video-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+footer.footer-adsdigi-style .footer-video-caption {
+    font-size: 0.9rem;
+    color: #57606f;
+    margin: 0 0 16px;
+}
+footer.footer-adsdigi-style .footer-promo-box {
+    background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+}
+footer.footer-adsdigi-style .footer-promo-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+footer.footer-adsdigi-style .footer-promo-desc {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.95;
+}
+footer.footer-adsdigi-style .footer-bottom {
+    padding: 20px 0 0;
+    text-align: center;
+}
+footer.footer-adsdigi-style .footer-copyright {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #747d8c;
+}
+footer.footer-adsdigi-style .footer-copyright a {
+    color: #ff6b81;
+    text-decoration: none;
+    font-weight: 500;
+}
+footer.footer-adsdigi-style .footer-copyright a:hover {
+    color: #ff4757;
+    text-decoration: underline;
+}
+
+/* Nút liên hệ nổi bên phải */
+.footer-float-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footer-float-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(0, 98, 204, 0.15), 0 0 0 1px rgba(0, 98, 204, 0.12);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.footer-float-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 4px 20px rgba(0, 98, 204, 0.22), 0 0 0 2px rgba(0, 98, 204, 0.2);
+}
+.footer-float-btn-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    display: block;
+}
+.footer-float-btn-icon-zalo {
+    width: 28px;
+    height: 28px;
+}
+.footer-float-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+}
+.footer-float-zalo {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Footer responsive – mẫu ADSDIGI */
+@media only screen and (max-width: 768px) {
+    footer.footer-adsdigi-style .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-bottom: 24px;
+    }
+    footer.footer-adsdigi-style {
+        padding: 36px 0 24px;
+    }
+    footer.footer-adsdigi-style .footer-desc {
+        max-width: 100%;
+    }
+    .footer-float-buttons {
+        right: 12px;
+        bottom: 16px;
+    }
+    .footer-float-btn {
+        width: 46px;
+        height: 46px;
+    }
+}
+
+/* Trang Chính sách / Điều khoản */
+.policy-page {
+    padding: 80px 0 60px;
+    min-height: 50vh;
+}
+.policy-page h2 {
+    margin-bottom: 8px;
+}
+.policy-updated {
+    text-align: center;
+    color: #747d8c;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+}
+.policy-content {
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+    color: #2f3542;
+}
+.policy-content h3 {
+    color: #2f3542;
+    font-size: 1.15rem;
+    margin: 24px 0 10px;
+}
+.policy-content p {
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+}
+.policy-contact {
+    margin-top: 28px !important;
+    padding-top: 20px;
+    border-top: 1px solid #e8ecf4;
+}
+.policy-contact a {
+    color: #ff6b81;
+    text-decoration: none;
+}
+.policy-contact a:hover {
+    color: #ff4757;
+    text-decoration: underline;
+}
+
+/* CSS for Footer (legacy - trang cũ dùng section.footer) */
+.footer{
+    background-color: transparent;
+    color: #2f3542;
+    padding: 2% 0;
+}
+
+/* for Order Section */
+.order{
+    width: 50%;
+    margin: 0 auto;
+}
+.input-responsive{
+    width: 96%;
+    padding: 1%;
+    margin-bottom: 3%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.order-label{
+    margin-bottom: 1%; 
+    font-weight: bold;
+}
+
+
+
+/* CSS for Mobile Size or Smaller Screen */
+
+@media only screen and (max-width:768px){
+    .logo{
+        width: 80%;
+        float: none;
+        margin: 1% auto;
+    }
+
+    .menu ul{
+        text-align: center;
+    }
+
+    .food-search input[type="search"]{
+        width: 90%;
+        padding: 2%;
+        margin-bottom: 3%;
+    }
+
+    .btn{
+        width: 91%;
+        padding: 2%;
+    }
+
+    .food-search{
+        padding: 10% 0;
+    }
+
+    .categories{
+        padding: 20% 0;
+    }
+    h2{
+        margin-bottom: 10%;
+    }
+    .box-3{
+        width: 100%;
+        margin: 4% auto;
+    }
+
+    .food-menu{
+        padding: 20% 0;
+    }
+
+    .food-menu-box{
+        width: 90%;
+        padding: 5%;
+        margin-bottom: 5%;
+    }
+    .social{
+        padding: 5% 0;
+    }
+    .order{
+        width: 100%;
+    }
+}
