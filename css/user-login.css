@@ -1,0 +1,42 @@
+body {
+    background-color: #f5f6fa;
+}
+
+.login-box {
+    max-width: 400px;
+    margin: 100px auto;
+}
+
+.login-card {
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.btn-pink {
+    background-color: #ff6b81;
+    color: white;
+}
+
+.btn-pink:hover {
+    background-color: #ff4757;
+    color: white;
+}
+
+.link-pink {
+    color: #ff6b81;
+    text-decoration: none;
+}
+
+.link-pink:hover {
+    text-decoration: underline;
+}
+
+.alert-custom-error {
+    background-color: #ffe6e6;
+    color: red;
+}
+
+.alert-custom-success {
+    background-color: #e6ffe6;
+    color: green;
+}

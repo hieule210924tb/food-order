@@ -1,5 +1,8 @@
 <?php
-$baseUrl = defined('SITEURL') ? SITEURL : '';
+if (!defined('SITEURL')) {
+    require_once __DIR__ . '/../config/constants.php';
+}
+$baseUrl = SITEURL;
 ?>
 <!-- Footer Main - Mẫu ADSDIGI -->
 <footer class="footer-main footer-adsdigi-style">
@@ -57,13 +60,17 @@ $baseUrl = defined('SITEURL') ? SITEURL : '';
     </div>
 </footer>
 
-<!-- Nút liên hệ nổi (bên phải): Zalo, Messenger, Facebook – nền trắng, viền xanh nhạt -->
-<div class="footer-float-buttons">
+<!-- Nút nổi góc phải: Chat (khi đã đăng nhập) + Gọi + Zalo -->
+<div class="footer-float-stack">
+    <div class="footer-float-buttons">
+    <?php
+    if (isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] > 0) {
+        include __DIR__ . '/chat-float-widget.php';
+    }
+    ?>
     <a href="tel:0983224809" class="footer-float-btn" title="Gọi điện" aria-label="Gọi điện"><img src="https://img.icons8.com/fluent/48/0062cc/phone.png" alt="Gọi điện" class="footer-float-btn-icon"/></a>
     <a href="https://zalo.me/0983224809" target="_blank" rel="noopener" class="footer-float-btn" title="Zalo" aria-label="Zalo"><img src="https://img.icons8.com/color/48/000000/zalo.png" alt="Zalo" class="footer-float-btn-icon footer-float-btn-icon-zalo"/></a>
-    <a href="#" target="_blank" rel="noopener" class="footer-float-btn" title="Messenger" aria-label="Messenger"><img src="https://img.icons8.com/fluent/48/0062cc/facebook-messenger.png" alt="Messenger" class="footer-float-btn-icon"/></a>
-    <a href="#" target="_blank" rel="noopener" class="footer-float-btn" title="Facebook" aria-label="Facebook"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook" class="footer-float-btn-icon"/></a>
+    </div>
 </div>
-
 </body>
 </html>

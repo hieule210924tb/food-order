@@ -185,103 +185,15 @@ if (isset($_POST['resend_code'])) {
         $_SESSION['verify_error'] = $result['message'] ?? "Không thể gửi lại mã xác minh";
     }
 }
+
+$page_title = 'Xác minh tài khoản - WowFood';
+$extra_stylesheets = [
+    '../css/user-auth-messages.css',
+    '../css/user-verify-code.css',
+];
+include __DIR__ . '/../partials-front/html-head.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xác minh tài khoản - WowFood</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .verify-container {
-            max-width: 500px;
-            margin: 100px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .verify-container h1 {
-            text-align: center;
-            color: #2f3542;
-            margin-bottom: 20px;
-        }
-        .verify-info {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 15px;
-            background-color: #f1f2f6;
-            border-radius: 5px;
-        }
-        .verify-info strong {
-            color: #ff6b81;
-        }
-        .code-input {
-            width: 100%;
-            padding: 15px;
-            font-size: 24px;
-            text-align: center;
-            letter-spacing: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-        .code-input:focus {
-            outline: none;
-            border-color: #ff6b81;
-        }
-        .verify-form input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #ff6b81;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-        .verify-form input[type="submit"]:hover {
-            background-color: #ff4757;
-        }
-        .resend-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .resend-link form {
-            display: inline;
-        }
-        .resend-link button {
-            background: none;
-            border: none;
-            color: #ff6b81;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 1rem;
-        }
-        .resend-link button:hover {
-            color: #ff4757;
-        }
-        .error {
-            color: red;
-            text-align: center;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #ffe6e6;
-            border-radius: 5px;
-        }
-        .success {
-            color: green;
-            text-align: center;
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #e6ffe6;
-            border-radius: 5px;
-        }
-    </style>
-</head>
+
 <body>
     <?php include('../partials-front/menu.php'); ?>
     

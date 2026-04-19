@@ -1,0 +1,88 @@
+.register-container {
+    max-width: 560px;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-form .form-group {
+    margin-bottom: 18px;
+}
+
+.register-form .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2f3542;
+    margin-bottom: 8px;
+}
+
+.register-form .form-group label .required {
+    color: #ff6b81;
+}
+
+.register-form .ghn-address-row .ghn-selects {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .register-form .ghn-address-row .ghn-selects {
+        grid-template-columns: 1fr;
+    }
+}
+
+.register-container h1 {
+    text-align: center;
+    color: #2f3542;
+    margin-bottom: 30px;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"],
+.register-form input[type="tel"],
+.register-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.register-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.register-form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6b81;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.register-form input[type="submit"]:hover {
+    background-color: #ff4757;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #ff6b81;
+}
