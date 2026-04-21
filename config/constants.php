@@ -12,7 +12,7 @@ $host = "localhost";
 $username = "root";
 $port = 3306;
 $password = "";
-$dbname = "food-oder"; // Tên DB phải trùng với sql/food-oder.sql (chú ý: "oder" không phải "order")
+$dbname = "food-oder-optimized"; // Tên DB phải trùng với sql/food-oder.sql (chú ý: "oder" không phải "order")
 
 if (!isset($conn) || !($conn instanceof mysqli)) {
     $conn = @new mysqli($host, $username, $password, $dbname, $port);

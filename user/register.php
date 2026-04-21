@@ -250,7 +250,12 @@ include __DIR__ . '/../partials-front/html-head.php';
                     return r.json();
                 })
                 .then(function(res) {
-                    if (!res.success || !res.data) return;
+                    if (!res.success || !res.data) {
+                        var msg = (res && res.message) ? res.message : 'Không tải được danh sách Tỉnh/TP.';
+                        selProvince.innerHTML = '<option value="">-- Không tải được Tỉnh/TP --</option>';
+                        if (window.Swal) Swal.fire('Lỗi', msg, 'error');
+                        return;
+                    }
                     var list = Array.isArray(res.data) ? res.data : Object.keys(res.data).map(function(k) {
                         var v = res.data[k];
                         return typeof v === 'object' ? v : {
@@ -264,7 +269,14 @@ include __DIR__ . '/../partials-front/html-head.php';
                         var name = p.ProvinceName || p.province_name || '';
                         if (id != null && name) selProvince.appendChild(new Option(name, id));
                     });
-                }).catch(function() {});
+                    if (selProvince.options.length <= 1) {
+                        selProvince.innerHTML = '<option value="">-- Không có dữ liệu Tỉnh/TP --</option>';
+                        if (window.Swal) Swal.fire('Lỗi', 'GHN không trả dữ liệu tỉnh/thành.', 'error');
+                    }
+                }).catch(function() {
+                    selProvince.innerHTML = '<option value="">-- Lỗi kết nối GHN --</option>';
+                    if (window.Swal) Swal.fire('Lỗi', 'Không kết nối được API GHN để tải Tỉnh/TP.', 'error');
+                });
         }
 
         function loadDistricts(provinceId) {

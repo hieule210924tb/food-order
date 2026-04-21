@@ -5,6 +5,40 @@ ob_end_clean();
 
 header('Content-Type: application/json; charset=utf-8');
 
+$http_request = function ($url, $headers, $isPost, $payload = null) {
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        $opts = [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_CONNECTTIMEOUT => 10,
+        ];
+        if ($isPost) {
+            $opts[CURLOPT_POST] = true;
+            $opts[CURLOPT_POSTFIELDS] = $payload !== null ? json_encode($payload) : '';
+        }
+        curl_setopt_array($ch, $opts);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+
+    $context_opts = [
+        'http' => [
+            'method' => $isPost ? 'POST' : 'GET',
+            'header' => implode("\r\n", $headers) . "\r\n",
+            'timeout' => 20,
+            'ignore_errors' => true,
+        ],
+    ];
+    if ($isPost) {
+        $context_opts['http']['content'] = $payload !== null ? json_encode($payload) : '';
+    }
+    $context = stream_context_create($context_opts);
+    return @file_get_contents($url, false, $context);
+};
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Phương thức không hợp lệ']);
     exit;
@@ -150,14 +184,12 @@ if ($to_district_id > 0 && $to_ward_code !== '' && defined('GHN_TOKEN') && GHN_T
         'weight'           => $order_weight_gram,
         'length' => 20, 'width' => 20, 'height' => 10,
     ];
-    $ch = curl_init($fee_url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true, CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Token: ' . GHN_TOKEN, 'ShopId: ' . (int) GHN_SHOP_ID],
-        CURLOPT_POSTFIELDS => json_encode($fee_body),
-    ]);
-    $fee_res = curl_exec($ch);
-    curl_close($ch);
+    $fee_res = $http_request(
+        $fee_url,
+        ['Content-Type: application/json', 'Token: ' . GHN_TOKEN, 'ShopId: ' . (int) GHN_SHOP_ID],
+        true,
+        $fee_body
+    );
     if ($fee_res !== false) {
         $fee_data = json_decode($fee_res, true);
         if (is_array($fee_data) && isset($fee_data['code']) && (int) $fee_data['code'] === 200 && isset($fee_data['data']['total'])) {
@@ -274,14 +306,12 @@ if ($to_district_id > 0 && $to_ward_code !== '' && defined('GHN_TOKEN') && GHN_T
         'cod_amount'       => ($payment_method === 'cash') ? (int) round($order_total) : 0,
         'items'            => [['name' => 'Đồ ăn', 'quantity' => 1, 'weight' => $order_weight_gram]],
     ];
-    $ch = curl_init($create_url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true, CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Token: ' . GHN_TOKEN, 'ShopId: ' . (int) GHN_SHOP_ID],
-        CURLOPT_POSTFIELDS => json_encode($create_body),
-    ]);
-    $create_res = curl_exec($ch);
-    curl_close($ch);
+    $create_res = $http_request(
+        $create_url,
+        ['Content-Type: application/json', 'Token: ' . GHN_TOKEN, 'ShopId: ' . (int) GHN_SHOP_ID],
+        true,
+        $create_body
+    );
     if ($create_res !== false) {
         $create_data = json_decode($create_res, true);
         if (is_array($create_data) && isset($create_data['code']) && (int) $create_data['code'] === 200 && isset($create_data['data'])) {
