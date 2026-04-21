@@ -33,7 +33,8 @@ $surl = htmlspecialchars(SITEURL, ENT_QUOTES, 'UTF-8');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat - WowFood</title>
-    <link rel="stylesheet" href="<?php echo $surl; ?>css/chat-embed.css">
+  
+    <link rel="stylesheet" href="<?php echo $surl; ?>css/chat-embed.css?ver=<?php echo rand(); ?>"/>
 </head>
 <body class="chat-embed-page">
 <div class="chat-embed-shell">

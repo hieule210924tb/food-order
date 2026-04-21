@@ -4,7 +4,7 @@ $chat_embed_url = htmlspecialchars(SITEURL . 'user/chat-embed.php', ENT_QUOTES, 
 ?>
 <div class="chat-float-widget" id="wowChatFloatRoot">
     <div class="chat-float-panel" id="wowChatFloatPanel" hidden>
-        <iframe class="chat-float-iframe" height="350px" id="wowChatFloatIframe" title="Chat WowFood" data-src="<?php echo $chat_embed_url; ?>"></iframe>
+        <iframe class="chat-float-iframe" id="wowChatFloatIframe" title="Chat WowFood" data-src="<?php echo $chat_embed_url; ?>"></iframe>
     </div>
     <button type="button" class="footer-float-btn chat-float-toggle" id="wowChatFloatToggle"
         aria-expanded="false" aria-controls="wowChatFloatPanel" title="Chat với Admin">

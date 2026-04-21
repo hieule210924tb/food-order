@@ -55,7 +55,7 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
                     </li>
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="<?php echo SITEURL; ?>user/cart.php">
-                            <i class="bi bi-cart3"></i>
+                            <i class="bi bi-cart3"></i> Giỏ hàng
                             <span id="cartBadge" class="chat-badge" style="display: none;">0</span>
                         </a>
                     </li>
@@ -69,7 +69,7 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
                     </li>
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="<?php echo SITEURL; ?>user/notifications.php">
-                            <i class="bi bi-bell"></i>
+                            <i class="bi bi-bell"></i> Thông báo
                             <span id="orderNotifBadge" class="chat-badge" style="display: none;">0</span>
                         </a>
                     </li>
