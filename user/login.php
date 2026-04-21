@@ -133,7 +133,7 @@ $extra_stylesheets = [
 ];
 include __DIR__ . '/../partials-front/html-head.php';
 ?>
-
+<?php include __DIR__ . '/../partials-front/menu.php'; ?>
 <body>
 
     <div class="login-box">

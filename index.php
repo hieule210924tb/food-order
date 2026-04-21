@@ -1,6 +1,6 @@
 <?php include("partials-front/menu.php"); ?>
 
-<section class="food-search text-center">
+<section class="food-search text-center mt-3">
     <div class="container">
 
         <form action="<?php echo SITEURL; ?>food-search.php" method="POST">

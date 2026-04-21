@@ -9,7 +9,7 @@ $chat_embed_url = htmlspecialchars(SITEURL . 'user/chat-embed.php', ENT_QUOTES, 
     <button type="button" class="footer-float-btn chat-float-toggle" id="wowChatFloatToggle"
         aria-expanded="false" aria-controls="wowChatFloatPanel" title="Chat với Admin">
         <i class="bi bi-chat-dots-fill chat-float-toggle-icon" aria-hidden="true"></i>
-        <span id="chatBadgeFloat" class="chat-badge" style="display: none;">0</span>
+        <span id="chatBadgeFloat" class="chat-badge is-hidden">0</span>
     </button>
 </div>
 <script>

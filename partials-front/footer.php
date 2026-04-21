@@ -61,7 +61,7 @@ $baseUrl = SITEURL;
 </footer>
 
 <!-- Nút nổi bên trái: Gọi + Zalo -->
-<div class="footer-float-stack footer-float-stack-left" style="left:20px; right:auto; bottom:24px;">
+<div class="footer-float-stack footer-float-stack-left">
     <div class="footer-float-buttons">
         <a href="tel:0983224809" class="footer-float-btn" title="Gọi điện" aria-label="Gọi điện"><img src="https://img.icons8.com/fluent/48/0062cc/phone.png" alt="Gọi điện" class="footer-float-btn-icon"/></a>
         <a href="https://zalo.me/0983224809" target="_blank" rel="noopener" class="footer-float-btn" title="Zalo" aria-label="Zalo"><img src="https://img.icons8.com/color/48/000000/zalo.png" alt="Zalo" class="footer-float-btn-icon footer-float-btn-icon-zalo"/></a>
@@ -70,7 +70,7 @@ $baseUrl = SITEURL;
 
 <!-- Nút nổi bên phải: Chat (khi đã đăng nhập) -->
 <?php if (isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] > 0): ?>
-<div class="footer-float-stack footer-float-stack-right" style="right:20px; left:auto; bottom:24px;">
+<div class="footer-float-stack footer-float-stack-right">
     <?php include __DIR__ . '/chat-float-widget.php'; ?>
 </div>
 <?php endif; ?>

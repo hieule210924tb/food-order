@@ -10,7 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?php echo SITEURL; ?>css/style.css">
+    <?php $style_version = @filemtime(__DIR__ . '/../css/style.css') ?: time(); ?>
+    <link rel="stylesheet" href="<?php echo SITEURL; ?>css/style.css?v=<?php echo $style_version; ?>">
 </head>
 
 <body class="has-main-nav">
@@ -26,10 +27,6 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
             <a class="navbar-brand d-flex align-items-center gap-2 py-1" href="<?php echo SITEURL; ?>"
                 title="WowFood - Food Delivery">
                 <img src="<?php echo SITEURL; ?>image/logo.png" alt="WowFood" class="d-inline-block" width="48" height="48" style="object-fit: contain;">
-                <span class="d-none d-sm-flex flex-column lh-sm text-start">
-                    <span class="fw-bold text-dark mb-0" style="font-size: 1.15rem; letter-spacing: -0.02em;">wowFood</span>
-                    <small class="text-muted" style="font-size: 0.7rem;">The Food Heaven</small>
-                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wowMainNav"
                 aria-controls="wowMainNav" aria-expanded="false" aria-label="Mở menu">
@@ -45,7 +42,7 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
                 </form>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo SITEURL; ?>"><i class="bi bi-house-door"></i> Trang chủ</a>
+                        <a class="nav-link" href="<?php echo SITEURL; ?>"><i class="bi bi-house-door"></i> Trang chủ </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo SITEURL; ?>categories.php"><i class="bi bi-grid"></i> Danh mục</a>
@@ -56,7 +53,7 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="<?php echo SITEURL; ?>user/cart.php">
                             <i class="bi bi-cart3"></i> Giỏ hàng
-                            <span id="cartBadge" class="chat-badge" style="display: none;">0</span>
+                            <span id="cartBadge" class="chat-badge is-hidden">0</span>
                         </a>
                     </li>
                     <?php if (isset($_SESSION['user'])) : ?>
@@ -70,14 +67,15 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="<?php echo SITEURL; ?>user/notifications.php">
                             <i class="bi bi-bell"></i> Thông báo
-                            <span id="orderNotifBadge" class="chat-badge" style="display: none;">0</span>
+                            <span id="orderNotifBadge" class="chat-badge is-hidden">0</span>
                         </a>
                     </li>
                     <?php /* Chat: dùng nút nổi góc màn hình (footer) + chat-embed */ ?>
                         <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="confirmLogout('<?php echo SITEURL; ?>user/logout.php'); return false;">
-                            <i class="bi bi-box-arrow-right"></i> Đăng xuất (<?php echo htmlspecialchars($nav_display_name); ?>)
+                        <a class="nav-link nav-logout-link" href="#" onclick="confirmLogout('<?php echo SITEURL; ?>user/logout.php'); return false;">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Đăng xuất (<span class="nav-user-name"><?php echo htmlspecialchars($nav_display_name); ?></span>)</span>
                         </a>
                     </li>
                     <?php else : ?>
@@ -105,25 +103,6 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
     <!-- SweetAlert2 for Logout Confirmation -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-    .chat-badge {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
-        color: white;
-        border-radius: 50%;
-        padding: 2px 6px;
-        font-size: 11px;
-        font-weight: bold;
-        min-width: 18px;
-        height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        animation: pulse 2s infinite;
-    }
-
     /* Tắt scroll cho SweetAlert2 */
     .swal2-no-scroll {
         overflow: hidden !important;
@@ -137,18 +116,6 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
     .swal2-html-container.swal2-no-scroll {
         overflow: visible !important;
         max-height: none !important;
-    }
-
-    @keyframes pulse {
-
-        0%,
-        100% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.1);
-        }
     }
 
     .addcart-modal { text-align: left; }
