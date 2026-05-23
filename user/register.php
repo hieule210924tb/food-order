@@ -166,7 +166,7 @@ $page_title = 'User Register - Food Order System';
 $extra_stylesheets = [
     '../css/checkout.css',
     '../css/user-auth-messages.css',
-    '../css/user-register.css',
+    '../css/components/user-register.css',
 ];
 include __DIR__ . '/../partials-front/html-head.php';
 ?>
@@ -174,64 +174,86 @@ include __DIR__ . '/../partials-front/html-head.php';
 <body>
 
     <div class="register-container">
-        <h1>Đăng ký</h1>
+        <div class="register-image">
+            <img src="../image/imgRes.png" alt="WowFood" class="register-bg-image">
+            <div class="image-overlay">
+                <h2>WowFood</h2>
+                <p>Thưởng thức món ngon mọi lúc mọi nơi</p>
+            </div>
+        </div>
+        <div class="register-card">
+            <div class="register-header">
+                <h2>Đăng ký</h2>
+                <p>Tạo tài khoản mới để trải nghiệm WowFood</p>
+            </div>
 
-        <form action="" method="POST" class="register-form" id="registerForm">
-            <div class="form-group">
-                <label for="full_name">Họ và tên <span class="required">*</span></label>
-                <input type="text" id="full_name" name="full_name" placeholder="Nguyễn Văn A" required
-                    value="<?php echo htmlspecialchars($_POST['full_name'] ?? ''); ?>">
-            </div>
-            <div class="form-group">
-                <label for="email">Email <span class="required">*</span></label>
-                <input type="email" id="email" name="email" placeholder="email@gmail.com" required
-                    value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
-            </div>
-            <div class="form-group">
-                <label for="password">Mật khẩu <span class="required">*</span></label>
-                <input type="password" id="password" name="password" placeholder="Ít nhất 6 ký tự" required
-                    minlength="6">
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Xác nhận mật khẩu <span class="required">*</span></label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Số điện thoại</label>
-                <input type="tel" id="phone" name="phone" placeholder="0900 123 456"
-                    value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
-            </div>
-            <div class="form-group full ghn-address-row">
-                <label for="ghn_province_id">Chọn địa chỉ (Tỉnh → Quận → Phường/Xã) <span
-                        class="required">*</span></label>
-                <div class="ghn-selects">
-                    <select id="ghn_province_id" name="ghn_province_id" class="ghn-select" aria-label="Tỉnh/Thành phố">
-                        <option value="">-- Chọn Tỉnh/TP --</option>
-                    </select>
-                    <select id="ghn_district_id" name="ghn_district_id" class="ghn-select" aria-label="Quận/Huyện"
-                        disabled>
-                        <option value="">-- Chọn Quận/Huyện --</option>
-                    </select>
-                    <select id="ghn_ward_code" name="ghn_ward_code" class="ghn-select" aria-label="Phường/Xã" disabled>
-                        <option value="">-- Chọn Phường/Xã --</option>
-                    </select>
+            <form action="" method="POST" class="register-form" id="registerForm">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="first_name">Họ <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Nhập họ của bạn" required
+                            value="<?php echo htmlspecialchars($_POST['first_name'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Tên <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Nhập tên của bạn" required
+                            value="<?php echo htmlspecialchars($_POST['last_name'] ?? ''); ?>">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="address">Địa chỉ chi tiết (số nhà, đường) <span class="required">*</span></label>
-                <input type="text" id="address" name="address" placeholder="Ví dụ: 123 Ngõ Nguyễn Huệ"
-                    value="<?php echo htmlspecialchars($_POST['address'] ?? ''); ?>">
-            </div>
-            <div
-                style="margin-bottom: 15px; padding: 10px; background-color: #e3f2fd; border-radius: 5px; font-size: 0.9em; color: #1976d2;">
-                <strong>📧 Lưu ý:</strong> Mã xác minh sẽ được gửi đến email Gmail của bạn.
-            </div>
-            <input type="submit" name="submit" value="Đăng ký" class="btn-primary">
-        </form>
+                <div class="form-group-row">
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email của bạn" required
+                        value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                </div>
+                  <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại của bạn"
+                        value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
+                </div>
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="password">Mật khẩu <span class="required">*</span></label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Ít nhất 6 ký tự" required
+                            minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Xác nhận mật khẩu <span class="required">*</span></label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Nhập lại mật khẩu"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group full ghn-address-row">
+                    <label for="ghn_province_id">Chọn địa chỉ (Tỉnh → Quận → Phường/Xã) <span
+                            class="required">*</span></label>
+                    <div class="ghn-selects">
+                        <select id="ghn_province_id" name="ghn_province_id" class="ghn-select" aria-label="Tỉnh/Thành phố">
+                            <option value="">-- Chọn Tỉnh/TP --</option>
+                        </select>
+                        <select id="ghn_district_id" name="ghn_district_id" class="ghn-select" aria-label="Quận/Huyện"
+                            disabled>
+                            <option value="">-- Chọn Quận/Huyện --</option>
+                        </select>
+                        <select id="ghn_ward_code" name="ghn_ward_code" class="ghn-select" aria-label="Phường/Xã" disabled>
+                            <option value="">-- Chọn Phường/Xã --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Địa chỉ chi tiết (số nhà, đường) <span class="required">*</span></label>
+                    <input type="text" id="address" name="address" class="form-control" placeholder="Ví dụ: 123 Ngõ Nguyễn Huệ"
+                        value="<?php echo htmlspecialchars($_POST['address'] ?? ''); ?>">
+                </div>
+                <div class="notice-box">
+                    <strong>📧 Lưu ý:</strong> Mã xác minh sẽ được gửi đến email Gmail của bạn.
+                </div>
+                <button type="submit" name="submit" class="btn-register">Đăng ký</button>
+            </form>
 
-        <div class="login-link">
-            <p>Đã có tài khoản? <a href="<?php echo SITEURL; ?>user/login.php">Đăng nhập tại đây</a></p>
+            <div class="register-footer">
+                <p>Đã có tài khoản? <a href="<?php echo SITEURL; ?>user/login.php">Đăng nhập ngay</a></p>
+            </div>
         </div>
     </div>
     <script>

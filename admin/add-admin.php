@@ -97,12 +97,12 @@ include('partials/menu.php');
 
 
         <div style="
-background:#ffffff;
-border-radius:12px;
-padding:25px;
-box-shadow:0 4px 14px rgba(0,0,0,0.06);
-border:1px solid #ecf0f1;
-max-width:650px;
+                background:#ffffff;
+                border-radius:12px;
+                padding:25px;
+                box-shadow:0 4px 14px rgba(0,0,0,0.06);
+                border:1px solid #ecf0f1;
+                max-width:650px;
 ">
 
             <form action="" method="POST">

@@ -34,7 +34,7 @@
 
 
     <!-- fOOD MEnu Section Starts Here -->
-    <section class="food-menu">
+    <section class="food-menu scroll-animate">
         <div class="container">
             <h2 class="text-center">Thực đơn</h2>
 
@@ -55,7 +55,7 @@
                     $description = $row2['description'];
                     $image_name = $row2['image_name'];
                     ?>
-                    <div class="food-menu-box">
+                    <div class="food-menu-box scroll-animate">
                 <div class="food-menu-img">
                 <?php
                     if($image_name=="")

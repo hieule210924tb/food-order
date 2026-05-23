@@ -371,4 +371,36 @@ $nav_show_admin_link = !isset($_SESSION['user']) || isset($_SESSION['admin_id'])
     // Load badge khi trang load
     updateCartBadge();
     setInterval(updateCartBadge, 3000);
+
+    // Scroll Animations
+    document.addEventListener('DOMContentLoaded', function() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements with scroll animation classes
+        const animatedElements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar-wow');
+        if (navbar) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+    });
     </script>

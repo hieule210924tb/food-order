@@ -3,7 +3,7 @@
 
 
     
-    <section class="categories">
+    <section class="categories scroll-animate">
         <div class="container">
             <h2 class="text-center">Khám phá món ăn</h2>
 
@@ -23,7 +23,7 @@
                 ?>
 
                     <a href="<?php echo SITEURL; ?>category-food.php?category_id=<?php echo $id; ?>">
-            <div class="box-3 float-container">
+            <div class="box-3 float-container scroll-animate-scale">
                 <?php
 
 

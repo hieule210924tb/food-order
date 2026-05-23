@@ -40,11 +40,11 @@
                             while ($rows = mysqli_fetch_assoc($res)) {
                                 // Trích xuất dữ liệu
                                 $id = $rows['id'];
-                                $full_name = htmlspecialchars($rows['full_name']);
-                                $email = htmlspecialchars($rows['email']);
+                                $full_name = htmlspecialchars((string)($rows['full_name'] ?? ''));
+                                $email = htmlspecialchars((string)($rows['email'] ?? ''));
                                 $phone = $hasPhone
-                                    ? htmlspecialchars($rows['phone'])
-                                    : htmlspecialchars($rows['username']);
+                                    ? htmlspecialchars((string)($rows['phone'] ?? ''))
+                                    : htmlspecialchars((string)($rows['username'] ?? ''));
                                 ?>
 
                                 <tr>

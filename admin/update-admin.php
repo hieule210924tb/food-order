@@ -169,7 +169,7 @@ require 'partials/menu.php';
                         <td style="font-weight:600;">Số điện thoại</td>
                         <td>
                             <input type="tel" name="phone" <?php echo $hasPhone ? 'required' : ''; ?>
-                                value="<?php echo htmlspecialchars($phone); ?>"
+                                value="<?php echo htmlspecialchars((string)($phone ?? '')); ?>"
                                 style="width:100%; padding:8px; border:1px solid #dfe4ea; border-radius:6px; box-sizing:border-box;">
                         </td>
                     </tr>

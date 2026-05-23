@@ -36,14 +36,14 @@ if(isset($_POST['submit'])){
             }
             else{
               
-                $_SESSION['login'] = "<div class='error'>Email hoặc mật khẩu không đúng!</div>";
+                $_SESSION['login'] = "Email hoặc mật khẩu không đúng!";
                 header('location:'.SITEURL.'admin/login.php');
                 exit();
             }
         }
         else{
             
-            $_SESSION['login'] = "<div class='error'>Email hoặc mật khẩu không đúng!</div>";
+            $_SESSION['login'] = "Email hoặc mật khẩu không đúng!";
             header('location:'.SITEURL.'admin/login.php');
             exit();
         }
@@ -52,67 +52,61 @@ if(isset($_POST['submit'])){
         mysqli_stmt_close($stmt);
     }
     else{
-        $_SESSION['login'] = "<div class='error'>Lỗi database!</div>";
+        $_SESSION['login'] = "Lỗi database!";
         header('location:'.SITEURL.'admin/login.php');
         exit();
     }
 }
+
+$page_title = 'Đăng nhập Admin - WowFood';
+$extra_stylesheets = [
+    [
+        'href' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
+        'integrity' => 'sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB',
+        'crossorigin' => 'anonymous',
+    ],
+    '../css/components/user-login.css',
+];
+include __DIR__ . '/../partials-front/html-head.php';
 ?>
-<html>
+<body>
 
-<head>
-    <title>Admin Login - Food Order System</title>
-    <link rel="stylesheet" href="../css/admin.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <style>
-    body.login-page {
-        background: url("../image/bg.jpg") center center no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        min-height: 100vh;
-        margin: 0;
-    }
-    .login-form input[type="email"],
-    .login-form input[type="password"] {
-        width: 80%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 1rem;
-        box-sizing: border-box;
-    }
+    <div class="login-container">
+        <div class="login-image">
+            <img src="../image/imgLogin.png" alt="WowFood Admin" class="login-bg-image">
+            <div class="image-overlay">
+                <h2>WowFood Admin</h2>
+                <p>Quản lý hệ thống đặt món ăn</p>
+            </div>
+        </div>
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Đăng nhập Admin</h2>
+                <p>Chào mừng trở lại với hệ thống quản lý</p>
+            </div>
 
-    .login-form input[type="submit"] {
-        width: 80%;
-        padding: 10px;
-        background-color: #ff6b81;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
+            <form action="" method="POST" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email của bạn" required>
+                </div>
 
-    .login-form input[type="submit"]:hover {
-        background-color: #ff4757;
-    }
-    </style>
-</head>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                </div>
 
-<body class="login-page">
-    <?php include('../partials-front/menu.php'); ?>
+                <button type="submit" name="submit" class="btn-login">
+                    Đăng nhập
+                </button>
+            </form>
 
-    <div class="login" style="margin-top: 150px;">
-        <h1 class="text-center">Đăng nhập Admin</h1>
-        <br><br>
-        <br><br>
-
-        <form action="" method="POST" class="login-form text-center">
-            <input type="email" name="email" placeholder="Email" required><br><br>
-            <input type="password" name="password" placeholder="Mật khẩu" required><br><br>
-            <input type="submit" name="submit" value="Đăng nhập" class="btn-primary">
-        </form>
+            <div class="login-footer">
+                <p class="back-link">
+                    <a href="<?php echo SITEURL; ?>index.php">← Quay lại trang chủ</a>
+                </p>
+            </div>
+        </div>
     </div>
 
     <!-- SweetAlert2 -->
@@ -166,6 +160,4 @@ if(isset($_POST['submit'])){
             ?>
     </script>
 </body>
-<?php include("partials/footer.php"); ?>
-
 </html>

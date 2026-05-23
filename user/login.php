@@ -129,50 +129,51 @@ $extra_stylesheets = [
         'integrity' => 'sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB',
         'crossorigin' => 'anonymous',
     ],
-    '../css/user-login.css',
+    '../css/components/user-login.css',
 ];
 include __DIR__ . '/../partials-front/html-head.php';
 ?>
-<?php include __DIR__ . '/../partials-front/menu.php'; ?>
 <body>
 
-    <div class="login-box">
-        <div class="card shadow login-card">
+    <div class="login-container">
+        <div class="login-image">
+            <img src="../image/imgLogin.png" alt="WowFood" class="login-bg-image">
+            <div class="image-overlay">
+                <h2>WowFood</h2>
+                <p>Thưởng thức món ngon mọi lúc mọi nơi</p>
+            </div>
+        </div>
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Đăng nhập</h2>
+                <p>Chào mừng trở lại với WowFood</p>
+            </div>
 
-            <h3 class="text-center mb-4">Đăng nhập</h3>
+            <form action="" method="POST" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email của bạn"
+                        value="<?php echo isset($_SESSION['login_email']) ? $_SESSION['login_email'] : ''; ?>" required>
+                </div>
 
-            <!-- Thông báo lỗi -->
-            <!-- <div class="alert alert-custom-error text-center">Sai mật khẩu</div> -->
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                </div>
 
-            <!-- Thông báo thành công -->
-            <!-- <div class="alert alert-custom-success text-center">Đăng ký thành công</div> -->
-
-            <form action="" method="POST">
-                <input type="email" name="email" class="form-control mb-3" placeholder="Email"
-                    value="<?php echo isset($_SESSION['login_email']) ? $_SESSION['login_email'] : ''; ?>" required>
-
-                <input type="password" name="password" class="form-control mb-3" placeholder="Mật khẩu" required>
-
-                <button type="submit" name="submit" class="btn btn-pink w-100">
+                <button type="submit" name="submit" class="btn-login">
                     Đăng nhập
                 </button>
             </form>
 
-            <div class="text-center mt-4">
-                <p>
-                    Chưa có tài khoản?
-                    <a href="<?php echo SITEURL; ?>user/register.php" class="link-pink">
-                        Đăng ký tại đây
-                    </a>
+            <div class="login-footer">
+                <p class="register-link">
+                    Chưa có tài khoản? <a href="<?php echo SITEURL; ?>user/register.php">Đăng ký ngay</a>
                 </p>
-
-                <p>
-                    <a href="<?php echo SITEURL; ?>user/forgot-password.php" class="link-pink">
-                        Quên mật khẩu?
-                    </a>
+                <p class="forgot-link">
+                    <a href="<?php echo SITEURL; ?>user/forgot-password.php">Quên mật khẩu?</a>
                 </p>
             </div>
-
         </div>
     </div>
 

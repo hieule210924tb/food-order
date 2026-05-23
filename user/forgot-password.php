@@ -139,32 +139,58 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$page_title = 'Quên mật khẩu - Food Order System';
-$extra_stylesheets = ['../css/user-forgot-password.css'];
+$page_title = 'Quên mật khẩu - WowFood';
+$extra_stylesheets = [
+    [
+        'href' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
+        'integrity' => 'sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB',
+        'crossorigin' => 'anonymous',
+    ],
+    '../css/components/user-login.css',
+];
 include __DIR__ . '/../partials-front/html-head.php';
 ?>
 
 <body>
 
     <div class="login-container">
-        <h1> Quên mật khẩu</h1>
-
-        <div class="info-box">
-            <strong> Lưu ý:</strong> Mã đặt lại mật khẩu sẽ được gửi đến email Gmail của bạn.
+        <div class="login-image">
+            <img src="../image/imgLogin.png" alt="WowFood" class="login-bg-image">
+            <div class="image-overlay">
+                <h2>WowFood</h2>
+                <p>Thưởng thức món ngon mọi lúc mọi nơi</p>
+            </div>
         </div>
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Quên mật khẩu</h2>
+                <p>Nhập email để nhận mã đặt lại mật khẩu</p>
+            </div>
 
-        <form action="" method="POST" class="login-form">
-            <input type="email" name="email" placeholder="Nhập email Gmail của bạn" required
-                pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Chỉ chấp nhận địa chỉ Gmail">
-            <input type="submit" name="submit" value="Gửi mã đặt lại" class="btn-primary">
-        </form>
+            <div class="notice-box">
+                <strong>📧 Lưu ý:</strong> Mã đặt lại mật khẩu sẽ được gửi đến email Gmail của bạn.
+            </div>
 
-        <div class="back-link">
-            <a href="<?php echo SITEURL; ?>user/login.php"><i class="bi bi-arrow-left"></i> Quay lại đăng nhập</a>
-        </div>
+            <form action="" method="POST" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Gmail</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email Gmail của bạn" required
+                        pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" title="Chỉ chấp nhận địa chỉ Gmail">
+                </div>
 
-        <div class="register-link">
-            <p>Chưa có tài khoản? <a href="<?php echo SITEURL; ?>user/register.php">Đăng ký tại đây</a></p>
+                <button type="submit" name="submit" class="btn-login">
+                    Gửi mã đặt lại
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p class="back-link">
+                    <a href="<?php echo SITEURL; ?>user/login.php">← Quay lại đăng nhập</a>
+                </p>
+                <p class="register-link">
+                    Chưa có tài khoản? <a href="<?php echo SITEURL; ?>user/register.php">Đăng ký ngay</a>
+                </p>
+            </div>
         </div>
     </div>
 

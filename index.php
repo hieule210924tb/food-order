@@ -12,7 +12,7 @@
 </section>
 
 </html>
-<section class="bestseller">
+<section class="bestseller scroll-animate">
     <div class="container">
         <h2 class="text-center">Món ăn bán chạy</h2>
         <?php
@@ -39,7 +39,7 @@
                     $price = $row['price'];
                     $image = $row['image_name'];
                 ?>
-            <div class="item">
+            <div class="item scroll-animate-scale">
                 <div class="badge">TOP <?php echo $rank++; ?></div>
                 <?php
                         if ($image != "") {
@@ -73,7 +73,7 @@
 </section>
 
 
-<section class="categories">
+<section class="categories scroll-animate">
     <div class="container">
         <h2 class="text-center">Khám phá món ăn</h2>
 
@@ -97,7 +97,7 @@
         ?>
 
         <a href="<?php echo SITEURL; ?>category-food.php?category_id=<?php echo $id; ?> ">
-            <div class="box-3 float-container">
+            <div class="box-3 float-container scroll-animate-scale">
                 <?php
 
 
@@ -132,7 +132,7 @@
 </section>
 
 
-<section class="food-menu">
+<section class="food-menu scroll-animate">
     <div class="container">
         <h2 class="text-center">Thực đơn</h2>
         <?php
@@ -155,7 +155,7 @@
                 $description = $row['description'];
                 $image_name = $row['image_name'];
         ?>
-        <div class="food-menu-box">
+        <div class="food-menu-box scroll-animate">
             <div class="food-menu-img">
                 <?php
                         if ($image_name == "") {
