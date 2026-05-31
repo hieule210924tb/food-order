@@ -15,10 +15,10 @@ if (!isset($_GET['user_id']) || !isset($_GET['last_id'])) {
     exit;
 }
 
-$adminId = (int) $_SESSION['admin_id'];
 $userId = (int) $_GET['user_id'];
 $lastId = (int) $_GET['last_id'];
 
+// Hội thoại theo user_id — mọi admin đều xem được toàn bộ tin với user đó
 $sql = "
 SELECT
     c.id,
@@ -33,7 +33,6 @@ LEFT JOIN tbl_user u ON u.id = c.user_id
 LEFT JOIN tbl_admin a ON a.id = c.admin_id
 WHERE c.user_id = ?
   AND c.id > ?
-  AND (c.admin_id = ? OR c.admin_id IS NULL)
 ORDER BY c.id ASC
 ";
 
@@ -43,22 +42,20 @@ if (!$stmt) {
     exit;
 }
 
-mysqli_stmt_bind_param($stmt, 'iii', $userId, $lastId, $adminId);
+mysqli_stmt_bind_param($stmt, 'ii', $userId, $lastId);
 mysqli_stmt_execute($stmt);
 $res = mysqli_stmt_get_result($stmt);
 
-// Đánh dấu tin nhắn người dùng đã được Admin đọc
 $upd = "
 UPDATE tbl_chat
 SET is_read = 1
 WHERE user_id = ?
   AND sender_type = 'user'
-  AND (admin_id = ? OR admin_id IS NULL)
   AND (is_read = 0 OR is_read IS NULL)
 ";
 $stmtUpd = mysqli_prepare($conn, $upd);
 if ($stmtUpd) {
-    mysqli_stmt_bind_param($stmtUpd, 'ii', $userId, $adminId);
+    mysqli_stmt_bind_param($stmtUpd, 'i', $userId);
     mysqli_stmt_execute($stmtUpd);
     mysqli_stmt_close($stmtUpd);
 }
@@ -79,4 +76,3 @@ while ($row = mysqli_fetch_assoc($res)) {
 mysqli_stmt_close($stmt);
 
 echo json_encode(['success' => true, 'messages' => $messages]);
-

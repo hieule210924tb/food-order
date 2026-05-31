@@ -2,6 +2,92 @@
 require_once('../config/constants.php');
 require_once('partials/login-check.php');
 
+if (isset($_POST['submit'])) {
+    $errors = [];
+
+    $id           = intval($_POST['id'] ?? 0);
+    $title        = trim($_POST['title'] ?? '');
+    $description  = trim($_POST['description'] ?? '');
+    $price_raw    = $_POST['price'] ?? '';
+    $category     = intval($_POST['category'] ?? 0);
+    $featured_raw = $_POST['featured'] ?? '';
+    $active_raw   = $_POST['active'] ?? '';
+    $current_image = trim($_POST['current_image'] ?? '');
+
+    $featured = ($featured_raw === 'Yes') ? 'Yes' : (($featured_raw === 'No') ? 'No' : '');
+    $active   = ($active_raw === 'Yes') ? 'Yes' : (($active_raw === 'No') ? 'No' : '');
+
+    if ($id <= 0) {
+        $errors[] = 'Món ăn không hợp lệ.';
+    }
+    if (mb_strlen($title) < 3) {
+        $errors[] = 'Tên món phải có ít nhất 3 ký tự.';
+    }
+    if (mb_strlen($description) < 10) {
+        $errors[] = 'Mô tả phải có ít nhất 10 ký tự.';
+    }
+    if ($price_raw === '' || !is_numeric($price_raw) || floatval($price_raw) < 0) {
+        $errors[] = 'Vui lòng nhập giá hợp lệ (>= 0).';
+    }
+    if ($category <= 0) {
+        $errors[] = 'Vui lòng chọn danh mục.';
+    }
+    if ($featured === '') {
+        $errors[] = "Vui lòng chọn trạng thái 'Nổi bật'.";
+    }
+    if ($active === '') {
+        $errors[] = "Vui lòng chọn trạng thái 'Hoạt động'.";
+    }
+
+    $price       = floatval($price_raw);
+    $image_name  = $current_image;
+
+    if (isset($_FILES['image']['name']) && $_FILES['image']['name'] !== '') {
+        $original_name = $_FILES['image']['name'];
+        $ext           = strtolower(pathinfo($original_name, PATHINFO_EXTENSION));
+        $allowed       = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
+
+        if (!in_array($ext, $allowed, true)) {
+            $errors[] = 'Định dạng ảnh không hợp lệ.';
+        } else {
+            $image_name      = 'Food-name-' . rand(0, 9999) . '.' . $ext;
+            $source_path     = $_FILES['image']['tmp_name'];
+            $destination_path = '../image/food/' . $image_name;
+
+            if (!move_uploaded_file($source_path, $destination_path)) {
+                $errors[] = 'Tải hình ảnh lên máy chủ thất bại.';
+            } elseif ($current_image !== '') {
+                $old_path = '../image/food/' . $current_image;
+                if (is_file($old_path)) {
+                    unlink($old_path);
+                }
+            }
+        }
+    }
+
+    if (!empty($errors)) {
+        $_SESSION['food_form_errors'] = $errors;
+        header('location:' . SITEURL . 'admin/update-food.php?id=' . $id);
+        exit();
+    }
+
+    $sql_update = 'UPDATE tbl_food SET title = ?, `description` = ?, price = ?, image_name = ?, category_id = ?, featured = ?, active = ? WHERE id = ?';
+    $stmt_update = mysqli_prepare($conn, $sql_update);
+    mysqli_stmt_bind_param($stmt_update, 'ssdssssi', $title, $description, $price, $image_name, $category, $featured, $active, $id);
+
+    if (mysqli_stmt_execute($stmt_update)) {
+        $_SESSION['update'] = "<div class='success'>Cập nhật món ăn thành công!</div>";
+        mysqli_stmt_close($stmt_update);
+        header('location:' . SITEURL . 'admin/manage-food.php');
+        exit();
+    }
+
+    mysqli_stmt_close($stmt_update);
+    $_SESSION['update'] = "<div class='error'>Lỗi hệ thống, vui lòng thử lại sau.</div>";
+    header('location:' . SITEURL . 'admin/update-food.php?id=' . $id);
+    exit();
+}
+
 if (!isset($_GET['id'])) {
     header('location:' . SITEURL . 'admin/manage-food.php');
     exit();
@@ -41,6 +127,13 @@ include('partials/menu.php');
         <p style="color:#747d8c; margin-bottom:25px;">
             Chỉnh sửa thông tin món ăn trong hệ thống.
         </p>
+
+        <?php
+        if (isset($_SESSION['update'])) {
+            echo $_SESSION['update'];
+            unset($_SESSION['update']);
+        }
+        ?>
 
         <div style="background:#ffffff; border-radius:12px; padding:25px; 
                     box-shadow:0 4px 14px rgba(0,0,0,0.06); 
@@ -165,4 +258,12 @@ include('partials/menu.php');
     </div>
 </div>
 
-<?php include('partials/footer.php'); ?>
+<?php
+if (isset($_SESSION['food_form_errors'])) {
+    $msg = implode("\\n", $_SESSION['food_form_errors']);
+    unset($_SESSION['food_form_errors']);
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>Swal.fire({icon:'error', title:'Lỗi nhập liệu', text:'" . addslashes($msg) . "'});</script>";
+}
+include('partials/footer.php');
+?>

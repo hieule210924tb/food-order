@@ -29,27 +29,19 @@ if (mb_strlen($message) > 2000) {
     exit;
 }
 
-// Chọn admin mặc định (id nhỏ nhất)
-$adminPickSql = "SELECT id FROM tbl_admin ORDER BY id ASC LIMIT 1";
-$adminPickRes = $conn->query($adminPickSql);
-if (!$adminPickRes || $adminPickRes->num_rows === 0) {
-    echo json_encode(['success' => false, 'message' => 'Chưa có admin để hỗ trợ']);
-    exit;
-}
-$adminId = (int) $adminPickRes->fetch_assoc()['id'];
-
 if ($orderCode !== '') {
     $message = "Mã đơn: {$orderCode} - {$message}";
 }
 
-$sql = "INSERT INTO tbl_chat (user_id, admin_id, sender_type, message, is_read) VALUES (?, ?, 'user', ?, 0)";
+// Tin từ user: admin_id = NULL (hội thoại chung theo user_id, admin trả lời sẽ gắn admin_id thật)
+$sql = "INSERT INTO tbl_chat (user_id, admin_id, sender_type, message, is_read) VALUES (?, NULL, 'user', ?, 0)";
 $stmt = mysqli_prepare($conn, $sql);
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Lỗi truy vấn']);
     exit;
 }
 
-mysqli_stmt_bind_param($stmt, 'iis', $userId, $adminId, $message);
+mysqli_stmt_bind_param($stmt, 'is', $userId, $message);
 if (mysqli_stmt_execute($stmt)) {
     $newId = mysqli_insert_id($conn);
     mysqli_stmt_close($stmt);
@@ -60,4 +52,3 @@ if (mysqli_stmt_execute($stmt)) {
 $err = mysqli_stmt_error($stmt);
 mysqli_stmt_close($stmt);
 echo json_encode(['success' => false, 'message' => 'Lỗi lưu tin nhắn: ' . $err]);
-

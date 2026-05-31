@@ -65,11 +65,38 @@ if (mysqli_stmt_execute($stmt)) {
         $notif_message = mb_substr($notif_message, 0, 240) . "...";
     }
 
-    $insNotif = $conn->prepare("INSERT INTO tbl_order_notification (order_code, user_id, message) VALUES (?, ?, ?)");
-    if ($insNotif) {
-        $insNotif->bind_param("sis", $notif_order_code, $userId, $notif_message);
-        $insNotif->execute();
-        $insNotif->close();
+    /**
+     * Một số schema (food-oder-optimized.sql) có ràng buộc FK:
+     * tbl_order_notification.order_code -> tbl_order.order_code.
+     * Nếu insert order_code = "CHAT" mà không tồn tại trong tbl_order thì sẽ lỗi,
+     * làm API trả về response lỗi/không phải JSON, dẫn tới frontend hiện alert.
+     *
+     * Vì tin nhắn chat đã lưu vào tbl_chat rồi, phần "thông báo" chỉ là phụ trợ:
+     * nếu không insert được thì bỏ qua để không phá luồng chat.
+     */
+    try {
+        $okInsertNotif = true;
+
+        // Nếu có bảng tbl_order thì chỉ insert khi order_code tồn tại (tránh lỗi FK)
+        $chk = $conn->prepare("SELECT 1 FROM tbl_order WHERE order_code = ? LIMIT 1");
+        if ($chk) {
+            $chk->bind_param("s", $notif_order_code);
+            $chk->execute();
+            $chk->store_result();
+            $okInsertNotif = ($chk->num_rows > 0);
+            $chk->close();
+        }
+
+        if ($okInsertNotif) {
+            $insNotif = $conn->prepare("INSERT INTO tbl_order_notification (order_code, user_id, message) VALUES (?, ?, ?)");
+            if ($insNotif) {
+                $insNotif->bind_param("sis", $notif_order_code, $userId, $notif_message);
+                $insNotif->execute();
+                $insNotif->close();
+            }
+        }
+    } catch (Throwable $e) {
+        // Ignore notification errors to keep JSON response intact.
     }
 
     echo json_encode(['success' => true, 'id' => (int) $newId]);
