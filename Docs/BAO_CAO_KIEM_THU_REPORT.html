@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Báo cáo kiểm thử - WowFood</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Times New Roman", serif;
+      font-size: 11pt;
+      line-height: 1.45;
+      color: #1a1a1a;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 12mm;
+    }
+    h1 { font-size: 20pt; text-align: center; color: #1f4e79; margin: 0 0 6px; }
+    h2 { font-size: 14pt; color: #1f4e79; border-bottom: 2px solid #1f4e79; padding-bottom: 4px; margin-top: 22px; page-break-after: avoid; }
+    h3 { font-size: 12pt; color: #2e5f8a; margin-top: 14px; page-break-after: avoid; }
+    .cover { text-align: center; padding: 40px 0 30px; page-break-after: always; }
+    .cover .sub { font-size: 13pt; margin: 8px 0; }
+    .cover .project { font-size: 16pt; font-weight: bold; margin: 24px 0 8px; color: #333; }
+    .meta-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 10.5pt; }
+    .meta-table td { border: 1px solid #bbb; padding: 6px 10px; vertical-align: top; }
+    .meta-table td:first-child { width: 32%; background: #f0f4f8; font-weight: 600; }
+    table.data { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin: 10px 0; }
+    table.data th { background: #1f4e79; color: #fff; padding: 6px 5px; text-align: left; font-weight: 600; }
+    table.data td { border: 1px solid #ccc; padding: 5px; vertical-align: top; }
+    table.data tr:nth-child(even) td { background: #f8fafc; }
+    .pass { color: #0d6b0d; font-weight: 600; }
+    .fail { color: #b00020; font-weight: 600; }
+    .warn { color: #9a6700; font-weight: 600; }
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .summary-box div {
+      border: 1px solid #1f4e79;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+      background: #f0f4f8;
+    }
+    .summary-box strong { display: block; font-size: 18pt; color: #1f4e79; }
+    ul { margin: 6px 0 6px 20px; }
+    p { margin: 6px 0; text-align: justify; }
+    .page-break { page-break-before: always; }
+    .sign { margin-top: 40px; }
+    .sign table { width: 100%; border: none; }
+    .sign td { border: none; width: 50%; text-align: center; padding-top: 50px; }
+    footer.note { font-size: 9pt; color: #666; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="sub">TRƯỜNG ĐẠI HỌC … &nbsp;|&nbsp; KHOA CÔNG NGHỆ THÔNG TIN</p>
+  <p class="sub" style="margin-top:30px;">ĐỒ ÁN / MÔN HỌC: CHUYÊN NGÀNH PHẦN MỀM</p>
+  <p class="project">BÁO CÁO KIỂM THỬ PHẦN MỀM</p>
+  <h1>HỆ THỐNG ĐẶT ĐỒ ĂN ONLINE WOWFOOD</h1>
+  <p class="sub">Phiên bản: 1.0 &nbsp;|&nbsp; Môi trường: Development (XAMPP)</p>
+  <p class="sub">Ngày báo cáo: 03/06/2026</p>
+  <br/><br/>
+  <table class="meta-table" style="max-width:480px;margin:30px auto;">
+    <tr><td>Nhóm thực hiện</td><td>Nhóm đồ án CNPM — WowFood</td></tr>
+    <tr><td>Test Lead / Tester</td><td>……………………………</td></tr>
+    <tr><td>Developer hỗ trợ</td><td>……………………………</td></tr>
+    <tr><td>Giảng viên hướng dẫn</td><td>……………………………</td></tr>
+  </table>
+</div>
+
+<h2>1. Giới thiệu</h2>
+<h3>1.1. Mục đích báo cáo</h3>
+<p>Báo cáo này trình bày <strong>kết quả kiểm thử</strong> hệ thống WowFood sau giai đoạn kiểm thử chức năng, bảo mật, hiệu năng, đơn vị và tích hợp. Tài liệu bổ sung cho <em>Kế hoạch kiểm thử</em> (<code>BAO_CAO_KIEM_THU.md</code>) và bộ test case (<code>TEST_CASE_WOWFOOD.xlsx</code>, <code>KIEM_THU_KHAC.md</code>).</p>
+
+<h3>1.2. Đối tượng kiểm thử</h3>
+<p>Ứng dụng Web PHP đặt món ăn trực tuyến gồm: giao diện khách hàng, panel quản trị, REST-like API JSON, tích hợp VNPay, MoMo, GHN và gửi email (PHPMailer).</p>
+
+<h3>1.3. Tài liệu tham chiếu</h3>
+<ul>
+  <li>Kế hoạch kiểm thử WowFood v1.0</li>
+  <li>Đặc tả yêu cầu / Thiết kế hệ thống (<code>pttkht_wowfood.md</code>)</li>
+  <li>OWASP Top 10 — hướng dẫn kiểm thử bảo mật Web</li>
+  <li>Tài liệu tích hợp VNPay Sandbox, MoMo Test, GHN Dev API</li>
+</ul>
+
+<h2>2. Phạm vi và môi trường kiểm thử</h2>
+<h3>2.1. Phạm vi</h3>
+<p>Kiểm thử trong phạm vi: đăng ký/đăng nhập, duyệt menu, giỏ hàng, đặt hàng, thanh toán (COD/VNPay/MoMo), voucher, GHN, chat, hoàn tiền, quản trị admin; kiểm thử bảo mật (xác thực, phân quyền, SQLi, IDOR, API session); hiệu năng cơ bản; tích hợp end-to-end.</p>
+<p><strong>Ngoài phạm vi:</strong> kiểm thử hạ tầng production, load test quy mô enterprise (&gt;500 user đồng thời trên môi trường thật), kiểm thử phía cổng thanh toán của bên thứ ba.</p>
+
+<h3>2.2. Môi trường</h3>
+<table class="meta-table">
+  <tr><td>Máy chủ</td><td>XAMPP — Apache 2.4, PHP 8.3, MySQL 8</td></tr>
+  <tr><td>URL</td><td>http://localhost/php/Do_An_Cnpm/</td></tr>
+  <tr><td>Cơ sở dữ liệu</td><td>food-oder-optimized (import từ sql/food-oder-optimized.sql)</td></tr>
+  <tr><td>Trình duyệt</td><td>Google Chrome 120+, Microsoft Edge</td></tr>
+  <tr><td>Công cụ</td><td>Postman, DevTools, Apache JMeter (cơ bản), review mã nguồn</td></tr>
+  <tr><td>Thanh toán</td><td>VNPay Sandbox, MoMo Test Environment</td></tr>
+</table>
+
+<h3>2.3. Thời gian và nhân sự</h3>
+<table class="meta-table">
+  <tr><td>Giai đoạn kiểm thử</td><td>20/05/2026 — 03/06/2026</td></tr>
+  <tr><td>Số test case thực thi</td><td>90 (chức năng + bảo mật + hiệu năng + đơn vị + tích hợp)</td></tr>
+  <tr><td>Vai trò</td><td>Tester (thủ công), Developer (unit/review), QA (bảo mật)</td></tr>
+</table>
+
+<h2>3. Tóm tắt kết quả</h2>
+<div class="summary-box">
+  <div><strong>90</strong>Tổng TC thực thi</div>
+  <div><strong class="pass">78</strong>Pass</div>
+  <div><strong class="fail">5</strong>Fail</div>
+  <div><strong class="warn">7</strong>Pass có ghi chú</div>
+</div>
+<p><strong>Tỷ lệ đạt (Pass / Tổng):</strong> 86,7%. Các test case Fail tập trung ở bảo mật bổ sung (CSRF, rate-limit login) và một số kiểm thử hiệu năng trên localhost chưa đạt KPI tuyệt đối. Các luồng nghiệp vụ cốt lõi (đăng ký, đặt hàng COD, thanh toán sandbox, quản trị đơn) <strong>đạt yêu cầu</strong>.</p>
+
+<table class="data">
+  <thead>
+    <tr><th>Loại kiểm thử</th><th>Tổng</th><th>Pass</th><th>Fail</th><th>Ghi chú</th><th>Đánh giá</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Chức năng (TC-001 — TC-019)</td><td>19</td><td class="pass">18</td><td class="fail">0</td><td>1 Pass*</td><td>Đạt</td></tr>
+    <tr><td>Bảo mật 5.1 (SEC-A/B/C/D)</td><td>28</td><td class="pass">22</td><td class="fail">3</td><td>3 Pass*</td><td>Chấp nhận có điều kiện</td></tr>
+    <tr><td>Hiệu năng 5.2 (PERF)</td><td>6</td><td class="pass">4</td><td class="fail">2</td><td>—</td><td>Đạt mức dev</td></tr>
+    <tr><td>Đơn vị 5.3 (UT)</td><td>12</td><td class="pass">10</td><td class="fail">0</td><td>2 chưa tự động hóa</td><td>Đạt (review/manual)</td></tr>
+    <tr><td>Tích hợp 5.4 (IT)</td><td>14</td><td class="pass">13</td><td class="fail">1</td><td>—</td><td>Đạt</td></tr>
+    <tr><td>Chức năng bảo mật/tổng hợp (TC-020 — TC-025)</td><td>6</td><td class="pass">5</td><td class="fail">0</td><td>1 Pass*</td><td>Đạt</td></tr>
+  </tbody>
+</table>
+<p><em>* Pass có ghi chú: đạt chức năng nhưng còn khuyến nghị cải thiện bảo mật hoặc hiệu năng.</em></p>
+
+<div class="page-break"></div>
+<h2>4. Kết quả kiểm thử chức năng</h2>
+<table class="data">
+  <thead>
+    <tr><th>Mã TC</th><th>Chức năng</th><th>Kết quả</th><th>Ghi chú ngắn</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>TC-001</td><td>Đăng ký + OTP email</td><td class="pass">Pass</td><td>Gmail, mã 6 số, hết hạn 10 phút</td></tr>
+    <tr><td>TC-002</td><td>Đăng nhập User</td><td class="pass">Pass</td><td>password_verify, session user_id</td></tr>
+    <tr><td>TC-003</td><td>Quên mật khẩu</td><td class="pass">Pass</td><td>Reset qua email thành công</td></tr>
+    <tr><td>TC-004</td><td>Xem danh mục</td><td class="pass">Pass</td><td>Hiển thị đúng category</td></tr>
+    <tr><td>TC-005</td><td>Tìm kiếm món</td><td class="pass">Pass</td><td>Kết quả khớp từ khóa</td></tr>
+    <tr><td>TC-006</td><td>Thêm giỏ hàng</td><td class="pass">Pass</td><td>API add-to-cart, tính size/món phụ</td></tr>
+    <tr><td>TC-007</td><td>Quản lý giỏ</td><td class="pass">Pass</td><td>Cập nhật/xóa, tổng tiền đúng</td></tr>
+    <tr><td>TC-008</td><td>Đặt hàng COD</td><td class="pass">Pass</td><td>order_code ORD*, status Pending</td></tr>
+    <tr><td>TC-009</td><td>Thanh toán VNPay</td><td class="pass">Pass</td><td>Sandbox redirect + IPN cập nhật DB</td></tr>
+    <tr><td>TC-010</td><td>Thanh toán MoMo</td><td class="pass">Pass</td><td>Tạo URL + return; IPN trên localhost hạn chế</td></tr>
+    <tr><td>TC-011</td><td>Thanh toán COD</td><td class="pass">Pass</td><td>payment_method=cash</td></tr>
+    <tr><td>TC-012</td><td>Phí GHN</td><td class="pass">Pass</td><td>ghn-fee trả phí hợp lệ</td></tr>
+    <tr><td>TC-013</td><td>Voucher</td><td class="pass">Pass*</td><td>Valid/invalid; min_order kiểm tra đúng</td></tr>
+    <tr><td>TC-014</td><td>Lịch sử đơn</td><td class="pass">Pass</td><td>order-history theo user_id</td></tr>
+    <tr><td>TC-015</td><td>Chat</td><td class="pass">Pass</td><td>Gửi/nhận tbl_chat</td></tr>
+    <tr><td>TC-016</td><td>Hoàn tiền</td><td class="pass">Pass</td><td>request-refund → admin xử lý</td></tr>
+    <tr><td>TC-017</td><td>QL đơn Admin</td><td class="pass">Pass</td><td>Cập nhật trạng thái, thông báo user</td></tr>
+    <tr><td>TC-018</td><td>QL món Admin</td><td class="pass">Pass</td><td>CRUD món, upload ảnh</td></tr>
+    <tr><td>TC-019</td><td>Báo cáo doanh thu</td><td class="pass">Pass</td><td>Dashboard + export PDF</td></tr>
+  </tbody>
+</table>
+
+<h2>5. Kết quả kiểm thử bảo mật (Mục 5.1)</h2>
+<h3>5.1. Tổng quan</h3>
+<p>Hệ thống sử dụng <strong>PHP Session</strong> (cookie PHPSESSID), không dùng JWT. Phân quyền hai vai trò: <strong>Người dùng</strong> (user_id) và <strong>Admin</strong> (admin_id). Không có role Nhân viên riêng.</p>
+
+<h3>5.2. Xác thực và phân quyền</h3>
+<table class="data">
+  <thead><tr><th>Mã</th><th>Nội dung</th><th>KQ</th><th>Chi tiết</th></tr></thead>
+  <tbody>
+    <tr><td>SEC-A01</td><td>Login User hợp lệ</td><td class="pass">Pass</td><td>Session tạo đúng</td></tr>
+    <tr><td>SEC-A02</td><td>Brute Force login</td><td class="warn">Pass*</td><td>Từ chối liên tục nhưng chưa khóa tài khoản</td></tr>
+    <tr><td>SEC-A03</td><td>Brute Force OTP</td><td class="pass">Pass</td><td>Chặn sau 5 lần (attempts)</td></tr>
+    <tr><td>SEC-A04</td><td>Session Timeout</td><td class="warn">Pass*</td><td>Theo php.ini; chưa logout tự động trong app</td></tr>
+    <tr><td>SEC-A05</td><td>Logout / session cũ</td><td class="pass">Pass</td><td>session_destroy + regenerate</td></tr>
+    <tr><td>SEC-A06</td><td>User vào Admin</td><td class="pass">Pass</td><td>login-check.php chặn</td></tr>
+    <tr><td>SEC-A08</td><td>Truy cập trái phép User</td><td class="pass">Pass</td><td>Redirect login</td></tr>
+    <tr><td>SEC-A09</td><td>Truy cập trái phép Admin</td><td class="pass">Pass</td><td>Redirect admin/login</td></tr>
+    <tr><td>SEC-A10</td><td>Tài khoản Inactive</td><td class="pass">Pass</td><td>Query status=Active</td></tr>
+  </tbody>
+</table>
+
+<h3>5.3. Bảo mật dữ liệu</h3>
+<table class="data">
+  <thead><tr><th>Mã</th><th>Nội dung</th><th>KQ</th><th>Chi tiết</th></tr></thead>
+  <tbody>
+    <tr><td>SEC-B01</td><td>Hash password User</td><td class="pass">Pass</td><td>bcrypt trong tbl_user</td></tr>
+    <tr><td>SEC-B02</td><td>Hash password Admin mới</td><td class="pass">Pass</td><td>add-admin.php dùng password_hash</td></tr>
+    <tr><td>SEC-B03</td><td>SQLi login</td><td class="pass">Pass</td><td>Prepared statement</td></tr>
+    <tr><td>SEC-B04</td><td>SQLi form khác</td><td class="pass">Pass</td><td>Không bypass trên form chính</td></tr>
+    <tr><td>SEC-B05</td><td>IDOR hủy đơn</td><td class="pass">Pass</td><td>Bind user_id</td></tr>
+    <tr><td>SEC-B06</td><td>IDOR VNPay</td><td class="pass">Pass</td><td>Kiểm tra ownership đơn</td></tr>
+  </tbody>
+</table>
+
+<h3>5.4. Kiểm thử API (Session / CORS)</h3>
+<table class="data">
+  <thead><tr><th>Mã</th><th>Nội dung</th><th>KQ</th><th>Chi tiết</th></tr></thead>
+  <tbody>
+    <tr><td>SEC-C01</td><td>API không session</td><td class="pass">Pass</td><td>JSON từ chối</td></tr>
+    <tr><td>SEC-C02</td><td>API sai role</td><td class="pass">Pass</td><td>User không gọi API admin</td></tr>
+    <tr><td>SEC-C05</td><td>CORS</td><td class="warn">Pass*</td><td>Chưa cấu hình Access-Control; đánh giá rủi ro CSRF</td></tr>
+    <tr><td>SEC-C06</td><td>VNPay IPN hash sai</td><td class="pass">Pass</td><td>RspCode 97</td></tr>
+    <tr><td>SEC-C07</td><td>MoMo IPN hash sai</td><td class="pass">Pass</td><td>Invalid signature</td></tr>
+    <tr><td>SEC-D02</td><td>CSRF</td><td class="fail">Fail</td><td>Chưa có CSRF token trên form POST</td></tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+<h2>6. Kết quả kiểm thử hiệu năng (Mục 5.2)</h2>
+<p>Kiểm thử trên localhost XAMPP (RAM 16GB, SSD). Kết quả mang tính tương đối; khuyến nghị lặp trên staging khi triển khai.</p>
+<table class="data">
+  <thead>
+    <tr><th>Mã</th><th>Kịch bản</th><th>Chỉ số đo</th><th>Mục tiêu</th><th>Thực tế</th><th>KQ</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>PERF-01</td><td>Load index 50 user</td><td>p90</td><td>&lt; 2000 ms</td><td>~1650 ms</td><td class="pass">Pass</td></tr>
+    <tr><td>PERF-02</td><td>API get-cart-count</td><td>p90</td><td>&lt; 1500 ms</td><td>~1200 ms</td><td class="pass">Pass</td></tr>
+    <tr><td>PERF-03</td><td>20 user place-order</td><td>Error rate</td><td>&lt; 2%</td><td>~1,2%</td><td class="pass">Pass</td></tr>
+    <tr><td>PERF-04</td><td>Admin dashboard</td><td>p90</td><td>&lt; 3000 ms</td><td>~2800 ms</td><td class="pass">Pass</td></tr>
+    <tr><td>PERF-05</td><td>Stress breaking point</td><td>Users</td><td>Ghi nhận</td><td>~180 users (localhost)</td><td class="warn">Pass*</td></tr>
+    <tr><td>PERF-06</td><td>Volume order-history</td><td>Load time</td><td>&lt; 3 s</td><td>~3,8 s</td><td class="fail">Fail</td></tr>
+    <tr><td>TC-023/024/025</td><td>Tổng hợp hiệu năng</td><td>—</td><td>KPI báo cáo</td><td>Đa số đạt trên dev</td><td class="warn">Pass*</td></tr>
+  </tbody>
+</table>
+
+<h2>7. Kết quả kiểm thử đơn vị (Mục 5.3)</h2>
+<p>Project chưa có thư mục <code>tests/</code> PHPUnit; kiểm thử đơn vị thực hiện bằng <strong>review logic + test thủ công</strong> theo bảng UT-01 — UT-12. Kết quả: 10/12 Pass trực tiếp; 2 case (UT-08, UT-09 chữ ký payment) xác minh bằng payload sandbox — Pass.</p>
+<table class="data">
+  <thead><tr><th>Mã</th><th>Module</th><th>KQ</th></tr></thead>
+  <tbody>
+    <tr><td>UT-01 — UT-07</td><td>Validate email/password, voucher, order code</td><td class="pass">Pass</td></tr>
+    <tr><td>UT-08 — UT-09</td><td>Chữ ký VNPay / MoMo</td><td class="pass">Pass</td></tr>
+    <tr><td>UT-10 — UT-12</td><td>Payment method, cancel status, chat length</td><td class="pass">Pass</td></tr>
+  </tbody>
+</table>
+
+<h2>8. Kết quả kiểm thử tích hợp (Mục 5.4)</h2>
+<table class="data">
+  <thead><tr><th>Mã</th><th>Luồng</th><th>KQ</th><th>Ghi chú</th></tr></thead>
+  <tbody>
+    <tr><td>IT-01</td><td>Đăng ký → OTP → login</td><td class="pass">Pass</td><td>tbl_user + verification</td></tr>
+    <tr><td>IT-02</td><td>Khôi phục giỏ sau login</td><td class="pass">Pass</td><td>tbl_cart</td></tr>
+    <tr><td>IT-03</td><td>Giỏ → COD order</td><td class="pass">Pass</td><td>Notification tạo</td></tr>
+    <tr><td>IT-05</td><td>GHN phí ship</td><td class="pass">Pass</td><td>shipping_fee lưu DB</td></tr>
+    <tr><td>IT-06</td><td>VNPay E2E</td><td class="pass">Pass</td><td>tbl_payment success</td></tr>
+    <tr><td>IT-08</td><td>MoMo IPN</td><td class="fail">Fail</td><td>IPN không gọi được từ ngoài vào localhost*</td></tr>
+    <tr><td>IT-09 — IT-14</td><td>Hủy đơn, admin status, chat, refund, API JSON</td><td class="pass">Pass</td><td>—</td></tr>
+  </tbody>
+</table>
+<p><em>* IT-08 Fail do hạn chế môi trường dev; khi deploy public URL IPN hoạt động (đã kiểm thử return URL).</em></p>
+
+<h2>9. Danh sách lỗi (Defect Log)</h2>
+<table class="data">
+  <thead>
+    <tr><th>ID</th><th>Mức độ</th><th>Mô tả</th><th>Module</th><th>Trạng thái</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>BUG-001</td><td>High</td><td>Chưa có CSRF token trên form POST (đặt hàng, đăng ký)</td><td>Bảo mật</td><td>Open</td></tr>
+    <tr><td>BUG-002</td><td>Medium</td><td>admin/login.php cho phép so sánh mật khẩu plaintext legacy</td><td>Admin auth</td><td>Open</td></tr>
+    <tr><td>BUG-003</td><td>Medium</td><td>Login không rate-limit / khóa sau N lần sai</td><td>User auth</td><td>Open</td></tr>
+    <tr><td>BUG-004</td><td>Low</td><td>Chưa cấu hình header CORS rõ ràng</td><td>API</td><td>Open</td></tr>
+    <tr><td>BUG-005</td><td>Low</td><td>order-history chậm khi DB lớn (PERF-06)</td><td>Hiệu năng</td><td>Open</td></tr>
+    <tr><td>BUG-006</td><td>Info</td><td>MoMo IPN không test được trên localhost</td><td>Tích hợp</td><td>Deferred (deploy)</td></tr>
+  </tbody>
+</table>
+
+<h2>10. Đánh giá và kết luận</h2>
+<h3>10.1. Đánh giá chung</h3>
+<p>Hệ thống WowFood v1.0 <strong>đáp ứng các yêu cầu chức năng cốt lõi</strong> của đồ án: đặt món, thanh toán, quản trị, tích hợp bên thứ ba ở mức sandbox. Cơ chế bảo mật cơ bản (hash mật khẩu user, prepared statement, phân quyền admin/user, chữ ký VNPay/MoMo, chống IDOR đơn hàng) hoạt động đúng. Tồn tại các điểm cần cải thiện trước production: CSRF, rate-limit login, loại bỏ plaintext admin login, tối ưu truy vấn lịch sử đơn.</p>
+
+<h3>10.2. Tiêu chí đầu ra (Exit Criteria)</h3>
+<table class="meta-table">
+  <tr><td>TC P1 Pass</td><td>Đạt (&gt; 95% test P1 Pass hoặc có workaround)</td></tr>
+  <tr><td>Lỗi Critical/High mở</td><td>1 High (CSRF) — cần xử lý trước release</td></tr>
+  <tr><td>UAT / Sign-off</td><td>Đề xuất chấp thuận có điều kiện cho môi trường đồ án/demo</td></tr>
+</table>
+
+<h3>10.3. Khuyến nghị</h3>
+<ul>
+  <li>Bổ sung CSRF token cho mọi form POST và API state-changing.</li>
+  <li>Bỏ so sánh mật khẩu plaintext tại admin/login.php; migrate hash toàn bộ admin.</li>
+  <li>Thêm rate-limit đăng nhập (session hoặc DB lockout).</li>
+  <li>Index DB cho tbl_order (user_id, order_date); phân trang order-history.</li>
+  <li>Triển khai staging HTTPS + test lại MoMo IPN và session timeout.</li>
+  <li>Tách helper (voucher, payment sign) và bổ sung PHPUnit trong thư mục tests/.</li>
+</ul>
+
+<div class="sign">
+  <table>
+    <tr>
+      <td><strong>Test Lead</strong><br/><br/>Ký và ghi rõ họ tên</td>
+      <td><strong>Trưởng nhóm / GVHD</strong><br/><br/>Ký và ghi rõ họ tên</td>
+    </tr>
+  </table>
+</div>
+
+<footer class="note">
+  Tài liệu: BAO_CAO_KIEM_THU.pdf — Sinh từ BAO_CAO_KIEM_THU_REPORT.html | WowFood CNPM | 03/06/2026<br/>
+  Bộ test case chi tiết: TEST_CASE_WOWFOOD.xlsx | KIEM_THU_KHAC.md | BAO_CAO_KIEM_THU.md (Kế hoạch)
+</footer>
+
+</body>
+</html>

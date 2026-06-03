@@ -273,32 +273,36 @@ Phần này trình bày chi tiết các mục tiêu kiểm tra tiến trình mà
 
 ## 5. Kiểm thử khác
 
+> **Chi tiết test case (SEC/PERF/UT/IT), bước thực hiện và map mã nguồn:** xem file [`KIEM_THU_KHAC.md`](KIEM_THU_KHAC.md).
+
 ### 5.1. Bảo mật (Security Testing)
 
-**Chi tiết security testing sẽ được thực hiện:**
+#### Mục tiêu
 
-Security testing sẽ được thực hiện bởi QA Engineer với sự hỗ trợ từ Test Lead. Các hoạt động bao gồm:
+Đảm bảo hệ thống **WowFood** an toàn trước các mối đe dọa bảo mật: truy cập trái phép, lộ dữ liệu, khai thác lỗ hổng nhập liệu và lạm dụng API.
 
-1. **Vulnerability Scanning:** Sử dụng OWASP ZAP để quét tự động các lỗ hổng bảo mật known vulnerabilities
-2. **Manual Security Testing:** Thực hiện manual testing cho SQL injection, XSS, CSRF, và authentication bypass
-3. **Penetration Testing:** Thử nghiệm penetration testing cơ bản để xác định các lỗ hổng tiềm ẩn
-4. **Code Review:** Review code để xác định các security issues tiềm ẩn
-5. **Configuration Review:** Kiểm tra configuration của server và application để đảm bảo security best practices
+#### Phạm vi kiểm thử
 
-**Các điểm kiểm tra bảo mật:**
+**1. Xác thực và phân quyền**
 
-- Xác thực và ủy quyền (Authentication & Authorization)
-- Bảo mật mật khẩu (Password Security)
-- Bảo mật API (API Security)
-- Bảo mật thanh toán (Payment Security)
-- Bảo mật dữ liệu (Data Security)
-- Bảo mật session (Session Security)
+- Kiểm tra cơ chế đăng nhập: **Brute Force** (login, mã OTP — giới hạn 5 lần tại `verify-code.php`), **Session Timeout** (theo cấu hình PHP session).
+- Phân quyền theo role: **Admin** (`admin_id`) và **Người dùng** (`user_id`). Dự án không có role “Nhân viên” riêng; quyền quản trị gom trong Admin (`admin/partials/login-check.php`).
+- Kiểm tra truy cập trái phép vào chức năng nhạy cảm: `admin/*`, `user/cart.php`, `checkout.php`, API `place-order`, `send-message`, …
 
-**Công cụ bảo mật:**
-- OWASP ZAP: Vulnerability scanning
-- Burp Suite: Web security testing
-- SQLMap: SQL injection testing
-- XSStrike: XSS testing
+**2. Bảo mật dữ liệu**
+
+- Mã hóa mật khẩu: `password_hash` / `password_verify` (User); Admin thêm mới có hash (`add-admin.php`).
+- Ngăn chặn **SQL Injection** trên form đăng nhập, đăng ký, tìm kiếm (prepared statement).
+- **IDOR**: tham số `order_code`, `user_id` trên API/URL — kiểm tra ràng buộc `user_id` session.
+
+**3. Kiểm thử API**
+
+- Xác thực: hệ thống dùng **PHP Session (cookie `PHPSESSID`)**, không dùng **JWT** — kiểm thử tương đương: gọi API không cookie / sai role.
+- **CORS**: chưa cấu hình header `Access-Control-*` — kiểm thử request cross-origin và đánh giá rủi ro.
+
+**Bảng test case đầy đủ (SEC-A/B/C/D), công cụ, exit criteria:** xem [`KIEM_THU_KHAC.md` — mục 5.1](KIEM_THU_KHAC.md).
+
+**Công cụ:** OWASP ZAP, Burp Suite, SQLMap, Postman.
 
 ### 5.2. Kiểm thử hiệu năng (S&V - Scalability & Volume)
 

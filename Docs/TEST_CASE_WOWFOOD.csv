@@ -1,0 +1,225 @@
+Mã TC,Loại kiểm thử,Chức năng,Mô tả chi tiết,Bước thực thi,Dữ liệu test,Kết quả mong đợi,Kết quả thực tế,Ghi chú
+TC-001,Chức năng,Đăng ký + OTP email,Gửi mã OTP 6 số qua email khi đăng ký,"1. Nhập email hợp lệ
+2. Nhập password
+3. Nhập xác nhận password
+4. Nhập họ tên, số điện thoại
+5. Click Đăng ký
+6. Kiểm tra email nhận OTP
+7. Nhập OTP
+8. Xác nhận",Email: test@gmail.com
+Password: Test@123
+OTP: 6 số,Tạo user trong tbl_user với status=Active,OTP hết hạn sau 10 phút,Pass,Gmail, mã 6 số, hết hạn 10 phút
+TC-002,Chức năng,Đăng nhập User,Đăng nhập với email và password đã đăng ký,"1. Nhập email đã đăng ký
+2. Nhập password đúng
+3. Click Đăng nhập",Email: test@gmail.com
+Password: Test@123,Tạo session user_id, redirect trang chủ,Pass,password_verify, session user_id
+TC-003,Chức năng,Quên mật khẩu,Reset mật khẩu qua email,"1. Click Quên mật khẩu
+2. Nhập email
+3. Click Gửi
+4. Kiểm tra email nhận link reset
+5. Nhập password mới
+6. Xác nhận",Email: test@gmail.com
+New password: NewTest@123,Cập nhật password trong tbl_user,Pass,Reset qua email thành công
+TC-004,Chức năng,Xem danh mục,Hiển thị danh sách category món ăn,"1. Truy cập trang chủ
+2. Click menu Danh mục
+3. Kiểm tra hiển thị",Danh mục: Cơm, Phở, Đồ uống, Tráng miệng,Hiển thị đúng category từ DB,Pass,Hiển thị đúng category
+TC-005,Chức năng,Tìm kiếm món,Tìm kiếm món theo từ khóa,"1. Nhập từ khóa vào ô tìm kiếm
+2. Click Tìm kiếm
+3. Kiểm tra kết quả",Từ khóa: "phở",Kết quả khớp từ khóa,Pass,Kết quả khớp từ khóa
+TC-006,Chức năng,Thêm giỏ hàng,Thêm món vào giỏ hàng,"1. Chọn món
+2. Chọn size (nếu có)
+3. Chọn món phụ (nếu có)
+4. Click Thêm vào giỏ",Món: Phở bò tái
+Size: L
+Món phụ: Quẩy,API add-to-cart, tính size/món phụ,Pass,API add-to-cart, tính size/món phụ
+TC-007,Chức năng,Quản lý giỏ,Cập nhật số lượng, xóa món, tính tổng,"1. Mở giỏ hàng
+2. Thay đổi số lượng
+3. Click Cập nhật
+4. Xóa món
+5. Kiểm tra tổng tiền",Số lượng: 2, 3, 1,Cập nhật/xóa, tổng tiền đúng,Pass,Cập nhật/xóa, tổng tiền đúng
+TC-008,Chức năng,Đặt hàng COD,Đặt hàng thanh toán khi nhận,"1. Giỏ hàng có món
+2. Click Đặt hàng
+3. Nhập thông tin giao hàng
+4. Chọn COD
+5. Xác nhận",Địa chỉ: 123 ABC, TP.HCM
+SĐT: 0901234567,Tạo order_code ORD*, status Pending,Pass,order_code ORD*, status Pending
+TC-009,Chức năng,Thanh toán VNPay,Thanh toán qua cổng VNPay Sandbox,"1. Chọn thanh toán VNPay
+2. Redirect sang VNPay
+3. Nhập thông tin test
+4. Xác nhận thanh toán
+5. Quay lại site",Sandbox VNPay test card,Redirect + IPN cập nhật DB,Pass,Sandbox redirect + IPN cập nhật DB
+TC-010,Chức năng,Thanh toán MoMo,Thanh toán qua cổng MoMo Test,"1. Chọn thanh toán MoMo
+2. Redirect sang MoMo
+3. Nhập thông tin test
+4. Xác nhận thanh toán
+5. Quay lại site",MoMo Test Environment,Tạo URL + return; IPN trên localhost hạn chế,Pass,Tạo URL + return; IPN trên localhost hạn chế
+TC-011,Chức năng,Thanh toán COD,Thanh toán tiền mặt khi nhận hàng,"1. Chọn phương thức COD
+2. Xác nhận đặt hàng",payment_method=cash,Đơn hàng tạo với payment_method=cash,Pass,payment_method=cash
+TC-012,Chức năng,Phí GHN,Tính phí ship qua GHN API,"1. Nhập địa chỉ giao hàng
+2. Gọi API GHN tính phí
+3. Hiển thị phí ship",Địa chỉ: Quận 1, TP.HCM,ghn-fee trả phí hợp lệ,Pass,ghn-fee trả phí hợp lệ
+TC-013,Chức năng,Voucher,Áp dụng mã giảm giá,"1. Nhập mã voucher
+2. Click Áp dụng
+3. Kiểm tra giảm giá",Mã hợp lệ: WOWFOOD10
+Mã sai: INVALID123
+Min order: 100k,Valid/invalid; min_order kiểm tra đúng,Pass*,Valid/invalid; min_order kiểm tra đúng
+TC-014,Chức năng,Lịch sử đơn,Xem danh sách đơn hàng của user,"1. Đăng nhập
+2. Click Lịch sử đơn
+3. Kiểm tra hiển thị",User đã có 5 đơn,order-history theo user_id,Pass,order-history theo user_id
+TC-015,Chức năng,Chat,Gửi và nhận tin nhắn,"1. Mở chat
+2. Nhập tin nhắn
+3. Click Gửi
+4. Kiểm tra tin nhắn hiển thị",Tin nhắn: "Xin chào",Gửi/nhận tbl_chat,Pass,Gửi/nhận tbl_chat
+TC-016,Chức năng,Hoàn tiền,Yêu cầu hoàn tiền,"1. Mở chi tiết đơn
+2. Click Yêu cầu hoàn tiền
+3. Nhập lý do
+4. Gửi",Lý do: Món bị hỏng,request-refund → admin xử lý,Pass,request-refund → admin xử lý
+TC-017,Chức năng,QL đơn Admin,Admin quản lý đơn hàng,"1. Đăng nhập Admin
+2. Mở QL đơn
+3. Cập nhật trạng thái
+4. Thông báo user",Trạng thái: Pending → Processing → Shipped,Cập nhật trạng thái, thông báo user,Pass,Cập nhật trạng thái, thông báo user
+TC-018,Chức năng,QL món Admin,Admin CRUD món ăn,"1. Đăng nhập Admin
+2. Thêm món mới
+3. Sửa thông tin
+4. Xóa món
+5. Upload ảnh",Món: Bún bò Huế
+Ảnh: bunbo.jpg,CRUD món, upload ảnh,Pass,CRUD món, upload ảnh
+TC-019,Chức năng,Báo cáo doanh thu,Xem báo cáo doanh thu,"1. Đăng nhập Admin
+2. Mở Dashboard
+3. Chọn khoảng thời gian
+4. Xem báo cáo
+5. Export PDF",Thời gian: Tháng 5/2026,Dashboard + export PDF,Pass,Dashboard + export PDF
+SEC-A01,Bảo mật,Login User hợp lệ,Đăng nhập với thông tin đúng,"1. Nhập email đúng
+2. Nhập password đúng
+3. Click Đăng nhập",Email: test@gmail.com
+Password: Test@123,Session tạo đúng,Pass,Session tạo đúng
+SEC-A02,Bảo mật,Brute Force login,Tấn công dò password login,"1. Tự động login nhiều lần sai
+2. Kiểm tra phản hồi server",100 lần login sai password,Từ chối liên tục nhưng chưa khóa tài khoản,Pass*,Từ chối liên tục nhưng chưa khóa tài khoản
+SEC-A03,Bảo mật,Brute Force OTP,Tấn công dò OTP,"1. Nhập OTP sai nhiều lần
+2. Kiểm tra chặn",5 lần OTP sai,Chặn sau 5 lần (attempts),Pass,Chặn sau 5 lần (attempts)
+SEC-A04,Bảo mật,Session Timeout,Session hết hạn tự động,"1. Đăng nhập
+2. Đợi session hết hạn
+3. Thử truy cập trang cần auth",Đợi theo php.ini (1440s),Theo php.ini; chưa logout tự động trong app,Pass*,Theo php.ini; chưa logout tự động trong app
+SEC-A05,Bảo mật,Logout/Session cũ,Xóa session khi logout,"1. Đăng nhập
+2. Click Logout
+3. Thử truy cập trang cần auth",Session ID cũ,session_destroy + regenerate,Pass,session_destroy + regenerate
+SEC-A06,Bảo mật,User vào Admin,User thường cố truy cập admin,"1. Đăng nhập User
+2. Truy cập trực tiếp /admin
+3. Kiểm tra redirect",User role,login-check.php chặn,Pass,login-check.php chặn
+SEC-A08,Bảo mật,Truy cập trái phép User,Truy cập trang user khi chưa login,"1. Chưa đăng nhập
+2. Truy cập trang user
+3. Kiểm tra redirect",URL: /user/profile,Redirect login,Pass,Redirect login
+SEC-A09,Bảo mật,Truy cập trái phép Admin,Truy cập trang admin khi chưa login,"1. Chưa đăng nhập
+2. Truy cập trang admin
+3. Kiểm tra redirect",URL: /admin/dashboard,Redirect admin/login,Pass,Redirect admin/login
+SEC-A10,Bảo mật,Tài khoản Inactive,Login với tài khoản inactive,"1. Tài khoản status=Inactive
+2. Thử đăng nhập",Email: inactive@gmail.com,Query status=Active,Pass,Query status=Active
+SEC-B01,Bảo mật,Hash password User,Mật khẩu user được hash,"1. Kiểm tra DB tbl_user
+2. Xác định password hash",DB: tbl_user,bcrypt trong tbl_user,Pass,bcrypt trong tbl_user
+SEC-B02,Bảo mật,Hash password Admin,Mật khẩu admin mới được hash,"1. Kiểm tra code add-admin.php
+2. Xác định password_hash",File: add-admin.php,add-admin.php dùng password_hash,Pass,add-admin.php dùng password_hash
+SEC-B03,Bảo mật,SQLi login,SQL Injection trên form login,"1. Nhập payload SQLi vào email/password
+2. Click Đăng nhập
+3. Kiểm tra không bypass",Payload: ' OR '1'='1,Prepared statement,Pass,Prepared statement
+SEC-B04,Bảo mật,SQLi form khác,SQL Injection trên form khác,"1. Thử SQLi trên các form khác
+2. Kiểm tra không bypass",Form: tìm kiếm, giỏ hàng,Không bypass trên form chính,Pass,Không bypass trên form chính
+SEC-B05,Bảo mật,IDOR hủy đơn,Insecure Direct Object Reference hủy đơn,"1. User A tạo đơn ORD001
+2. User B cố hủy ORD001
+3. Kiểm tra chặn",User A: user_id=1
+User B: user_id=2,Bind user_id,Pass,Bind user_id
+SEC-B06,Bảo mật,IDOR VNPay,IDOR trên callback VNPay,"1. Thay đổi order_id trong callback VNPay
+2. Kiểm tra chặn",Order_id khác,Kiểm tra ownership đơn,Pass,Kiểm tra ownership đơn
+SEC-C01,Bảo mật,API không session,Gọi API khi chưa có session,"1. Gọi API JSON mà không có session
+2. Kiểm tra phản hồi",API: /api/get-cart,JSON từ chối,Pass,JSON từ chối
+SEC-C02,Bảo mật,API sai role,User gọi API admin,"1. User gọi API admin
+2. Kiểm tra từ chối",User gọi /api/admin/orders,User không gọi API admin,Pass,User không gọi API admin
+SEC-C05,Bảo mật,CORS,Cross-Origin Resource Sharing,"1. Kiểm tra header CORS
+2. Đánh giá rủi ro CSRF",Header: Access-Control-Allow-Origin,Chưa cấu hình Access-Control; đánh giá rủi ro CSRF,Pass*,Chưa cấu hình Access-Control; đánh giá rủi ro CSRF
+SEC-C06,Bảo mật,VNPay IPN hash sai,IPN VNPay với chữ ký sai,"1. Gửi IPN với hash sai
+2. Kiểm tra từ chối",Hash sai,RspCode 97,Pass,RspCode 97
+SEC-C07,Bảo mật,MoMo IPN hash sai,IPN MoMo với chữ ký sai,"1. Gửi IPN với signature sai
+2. Kiểm tra từ chối",Signature sai,Invalid signature,Pass,Invalid signature
+SEC-D02,Bảo mật,CSRF,Cross-Site Request Forgery,"1. Kiểm tra form POST có CSRF token
+2. Thử tấn công CSRF",Form: đăng ký, đặt hàng,Chưa có CSRF token trên form POST,Fail,Chưa có CSRF token trên form POST
+PERF-01,Hiệu năng,Load index 50 user,Tải trang chủ với 50 user đồng thời,"1. JMeter: 50 user truy cập index
+2. Đo p90 response time",50 user, p90,< 2000 ms,~1650 ms,Pass,~1650 ms
+PERF-02,Hiệu năng,API get-cart-count,API lấy số lượng giỏ hàng,"1. JMeter: 50 user gọi API
+2. Đo p90 response time",50 user, p90,< 1500 ms,~1200 ms,Pass,~1200 ms
+PERF-03,Hiệu năng,20 user place-order,20 user đặt hàng đồng thời,"1. JMeter: 20 user place-order
+2. Đo error rate",20 user, error rate,< 2%,~1,2%,Pass,~1,2%
+PERF-04,Hiệu năng,Admin dashboard,Tải dashboard admin,"1. JMeter: 20 user truy cập dashboard
+2. Đo p90 response time",20 user, p90,< 3000 ms,~2800 ms,Pass,~2800 ms
+PERF-05,Hiệu năng,Stress breaking point,Tìm điểm gãy của hệ thống,"1. Tăng dần số user
+2. Ghi nhận khi hệ thống quá tải",Tăng từ 50 → 200 user,Ghi nhận,~180 users (localhost),Pass*,~180 users (localhost)
+PERF-06,Hiệu năng,Volume order-history,Tải lịch sử đơn với DB lớn,"1. DB có 1000+ đơn
+2. Load trang order-history
+3. Đo load time",DB: 1000 đơn, load time,< 3 s,~3,8 s,Fail,~3,8 s
+UT-01,Đơn vị,Validate email,Hàm validate email,"1. Test email hợp lệ
+2. Test email sai
+3. Kiểm tra kết quả",Email: test@gmail.com, valid@test.com, invalid@,Trả true/false đúng,Pass,Validate email/password, voucher, order code
+UT-02,Đơn vị,Validate password,Hàm validate password,"1. Test password mạnh
+2. Test password yếu
+3. Kiểm tra kết quả",Pass: Test@123, weak: 123,Trả true/false đúng,Pass,Validate email/password, voucher, order code
+UT-03,Đơn vị,Validate voucher,Hàm kiểm tra voucher,"1. Test mã hợp lệ
+2. Test mã hết hạn
+3. Test min order",Voucher: WOWFOOD10, EXPIRED,Trả true/false đúng,Pass,Validate email/password, voucher, order code
+UT-04,Đơn vị,Generate order code,Hàm tạo mã đơn,"1. Gọi hàm tạo order_code
+2. Kiểm tra format",Format: ORD + timestamp,Trả string đúng format,Pass,Validate email/password, voucher, order code
+UT-05,Đơn vị,Calculate total,Hàm tính tổng tiền,"1. Input: danh sách món, số lượng
+2. Kiểm tra tổng",Món: 2x50k + 1x30k = 130k,Tổng đúng,Pass,Validate email/password, voucher, order code
+UT-06,Đơn vị,Apply discount,Hàm áp dụng giảm giá,"1. Input: total, voucher
+2. Kiểm tra giá sau giảm",Total: 100k, Voucher: 10% → 90k,Giá đúng,Pass,Validate email/password, voucher, order code
+UT-07,Đơn vị,Validate phone,Hàm validate số điện thoại,"1. Test SĐT VN
+2. Test SĐT sai",SĐT: 0901234567, 123,Trả true/false đúng,Pass,Validate email/password, voucher, order code
+UT-08,Đơn vị,Chữ ký VNPay,Hàm tạo signature VNPay,"1. Input: params, secret key
+2. Kiểm tra hash SHA256",Params: amount, orderCode,Hash khớp VNPay,Pass,Chữ ký VNPay / MoMo
+UT-09,Đơn vị,Chữ ký MoMo,Hàm tạo signature MoMo,"1. Input: params, secret key
+2. Kiểm tra hash HMAC SHA256",Params: amount, orderId,Hash khớp MoMo,Pass,Chữ ký VNPay / MoMo
+UT-10,Đơn vị,Payment method,Hàm kiểm tra payment method,"1. Test các phương thức thanh toán
+2. Kiểm tra valid",Methods: cod, vnpay, momo,Trả true/false đúng,Pass,Payment method, cancel status, chat length
+UT-11,Đơn vị,Cancel status,Hàm kiểm tra trạng thái hủy,"1. Test các trạng thái có thể hủy
+2. Kiểm tra logic",Status: Pending có thể hủy, Shipped không,Logic đúng,Pass,Payment method, cancel status, chat length
+UT-12,Đơn vị,Chat length,Hàm validate độ dài tin nhắn,"1. Test tin nhắn quá dài
+2. Kiểm tra giới hạn",Max: 500 ký tự,Trả true/false đúng,Pass,Payment method, cancel status, chat length
+IT-01,Tích hợp,Đăng ký → OTP → login,Flow đăng ký hoàn chỉnh,"1. Đăng ký mới
+2. Nhập OTP
+3. Login
+4. Kiểm tra DB",Email: newuser@gmail.com,tbl_user + verification,Pass,tbl_user + verification
+IT-02,Tích hợp,Khôi phục giỏ sau login,Phục hồi giỏ hàng khi login,"1. Thêm món khi chưa login
+2. Login
+3. Kiểm tra giỏ hàng",Giỏ: 2 món,tbl_cart,Pass,tbl_cart
+IT-03,Tích hợp,Giỏ → COD order,Flow đặt hàng COD,"1. Giỏ có món
+2. Đặt hàng COD
+3. Kiểm tra đơn và notification",Giỏ: 3 món, COD,Notification tạo,Pass,Notification tạo
+IT-05,Tích hợp,GHN phí ship,Tính phí ship GHN,"1. Nhập địa chỉ
+2. Gọi API GHN
+3. Lưu phí ship vào DB",Địa chỉ: Q1, TP.HCM,shipping_fee lưu DB,Pass,shipping_fee lưu DB
+IT-06,Tích hợp,VNPay E2E,Flow thanh toán VNPay hoàn chỉnh,"1. Đặt hàng chọn VNPay
+2. Redirect VNPay
+3. Thanh toán test
+4. IPN callback
+5. Kiểm tra DB",Sandbox VNPay,tbl_payment success,Pass,tbl_payment success
+IT-08,Tích hợp,MoMo IPN,IPN callback từ MoMo,"1. Đặt hàng MoMo
+2. Thanh toán test
+3. IPN callback từ MoMo
+4. Kiểm tra DB",MoMo Test,IPN không gọi được từ ngoài vào localhost*,Fail,IPN không gọi được từ ngoài vào localhost*
+IT-09,Tích hợp,Hủy đơn,Flow hủy đơn hàng,"1. User hủy đơn
+2. Admin nhận thông báo
+3. Cập nhật status",Đơn: ORD001, status Pending,Status → Cancelled,Pass,Hủy đơn, admin status, chat, refund, API JSON
+IT-10,Tích hợp,Admin status,Admin cập nhật trạng thái đơn,"1. Admin cập nhật status
+2. User nhận thông báo
+3. Kiểm tra DB",Status: Processing → Shipped,Status + notification,Pass,Hủy đơn, admin status, chat, refund, API JSON
+IT-11,Tích hợp,Chat E2E,Flow chat giữa user và admin,"1. User gửi tin
+2. Admin nhận
+3. Admin trả lời
+4. User nhận",Tin: Xin chào, Trả lời: Chào bạn,2 chiều tbl_chat,Pass,Hủy đơn, admin status, chat, refund, API JSON
+IT-12,Tích hợp,Refund,Flow hoàn tiền,"1. User request refund
+2. Admin duyệt
+3. Cập nhật trạng thái
+4. Gửi email",Lý do: Món hỏng,Refund → Processed,Pass,Hủy đơn, admin status, chat, refund, API JSON
+IT-13,Tích hợp,API JSON,API JSON trả dữ liệu,"1. Gọi API JSON
+2. Kiểm tra response
+3. Validate JSON",API: /api/get-menu,JSON valid,Pass,Hủy đơn, admin status, chat, refund, API JSON
+IT-14,Tích hợp,Email notification,Gửi email notification,"1. Tạo đơn hàng
+2. Gửi email xác nhận
+3. Kiểm tra email nhận",Email: test@gmail.com,Email gửi thành công,Pass,Hủy đơn, admin status, chat, refund, API JSON
